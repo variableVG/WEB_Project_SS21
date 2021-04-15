@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Apr 2021 um 14:16
--- Server-Version: 10.4.17-MariaDB
--- PHP-Version: 8.0.0
+-- Erstellungszeit: 15. Apr 2021 um 15:12
+-- Server-Version: 10.4.14-MariaDB
+-- PHP-Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,15 +60,9 @@ CREATE TABLE `termine` (
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `ort` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `termin_creation_date` date NOT NULL,
-  `ablauf_termin` date NOT NULL
+  `ablauf_termin` date NOT NULL,
+  `author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `termine`
---
-
-INSERT INTO `termine` (`id`, `name`, `ort`, `termin_creation_date`, `ablauf_termin`) VALUES
-(1, 'Web Unterricht', 'Online', '2021-04-30', '2021-04-20');
 
 -- --------------------------------------------------------
 
@@ -105,7 +99,8 @@ ALTER TABLE `kommentare`
 -- Indizes für die Tabelle `termine`
 --
 ALTER TABLE `termine`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `auhtor_termin` (`author`);
 
 --
 -- Indizes für die Tabelle `user`
@@ -159,6 +154,12 @@ ALTER TABLE `ausgewaehlte_termine`
 ALTER TABLE `kommentare`
   ADD CONSTRAINT `kommentare_termine` FOREIGN KEY (`termin_id`) REFERENCES `termine` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `kommentare_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `termine`
+--
+ALTER TABLE `termine`
+  ADD CONSTRAINT `auhtor_termin` FOREIGN KEY (`author`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

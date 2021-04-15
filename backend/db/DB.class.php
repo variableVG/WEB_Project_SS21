@@ -17,10 +17,41 @@ class Database {
     }
 
 
-    public function createAppointment($param) {
+    public function createAppointment($appointment) {
 
+        $sql = "INSERT INTO termine (id, name, ort,	termin_creation_date, ablauf_termin, author)
+        VALUES (NULL, ?, ?, ?, ?, ?);";
+
+        $stmt = $this->db->prepare($sql);
+        if ($stmt === false){
+           $this->errormsg = "SQL statement prepare failed.";
+           return false;
+        }
+        $name = $appointment->getName();
+        $ort = $appointment->getOrt();
+        $termin_datum = $appointment-> getTerminDatum();
+        $ablauf_termin = $appointment-> getAblaufDatum();
+        $author = $appointment->getAuthor();
+
+        if ($stmt->bind_param("sssss",
+        $name,
+        $ort,
+        $termin_datum,
+        $ablauf_termin, 
+        $author) == false){
+           $this->errormsg = "SQL statement binding failed.";
+           return false;
+        }
+
+       if ($stmt->execute() == false){
+          $this->errormsg = "Appointment could not be created. Maybe it already exists.";
+          return false;
+       }
+       $stmt->close();
+       return true;
     }
-        
+
+
     public function getAppointments($termin_id) {
 
         $sql = 'SELECT * FROM termine WHERE id = ?';
@@ -52,10 +83,6 @@ class Database {
          //   $termin['termin_zeit'], $termin['ablauf_termin']);
 
     }
-
-
-
-
 }
 
 

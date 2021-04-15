@@ -7,15 +7,18 @@ class Appointment {
     private $termin_datum;
     private $termin_zeit;
     private $ablauf_termin;
+    private $author ;
+
     
 
-    function __construct($id, $name, $ort, $termin_datum, $termin_zeit, $ablauf_termin){
+    function __construct($id, $name, $ort, $termin_datum, $termin_zeit, $ablauf_termin,$author ){
         $this->id = $id; 
         $this->name = $name; 
         $this->ort = $ort; 
         $this->termin_datum = $termin_datum;
         $this->termin_zeit = $termin_zeit; 
         $this->ablauf_termin = $ablauf_termin; 
+        $this->author= $author;
     }
 
     function setId($id){
