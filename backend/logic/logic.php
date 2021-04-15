@@ -13,10 +13,14 @@ class Logic
 
     function handleRequest($action, $parameter)
     {
+        echo "You are in handle Request"; 
+
+        echo $action; 
 
         $result = 0;
         switch ($action) {
             case "createAppointment":
+                print_r($parameter); 
                 $result = $this->db->createAppointment($parameter);
                 break;
             case "getAppointments":

@@ -13,10 +13,19 @@ if($method != 'POST') {
     //exit; 
 }
 isset($_POST["action"]) ? $action = $_POST["action"] : false;
-isset($_POST["parameter"]) ? $parameter = $_POST["parameter"] : false;
+isset($_POST["name"]) ? $parameter["name"] = $_POST["name"] : false;
+isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
+isset($_POST["termin_option"]) ? $parameter["termin_option"] = $_POST["termin_option"] : false;
+isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
+
+echo "action is: ";
+echo $action; 
+echo "Parameter is: "; 
+print_r($parameter); 
 
 $logic = new Logic();
 $result = $logic->handleRequest($action, $parameter);
+
 if ($result == null) {
     response("POST", 400, null);
 } else {

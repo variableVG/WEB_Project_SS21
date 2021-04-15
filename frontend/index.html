@@ -7,16 +7,48 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     
     <title>Web Projekt</title>
 </head>
 
 <body>
+    <div id="button_show_termine_form"><button type="button" class="btn btn-danger" onclick="showTermin()">Create Appointment</button></div>
+    
     <div id="create_termin">
-        <button type="button" class="btn btn-warning" onclick="">Create Appointment</button>
+        <form id ="termin_form">
+            <div class="container">
+                <div class="row">
+                    <label for="name">Veranstaltung</label>
+                    <input type="text" name="name" id="name" minlength="1" maxlength="20">
+                </div>
+                <div class="row">
+                    <label for="ort">Ort</label>
+                    <input type="text" name="ort" id="ort" minlength="1" maxlength="20">
+                </div>
+                <div class="row">
+                    <div id="termin_options">
+                        <label for="termin_option">Enter Termin - Option 1</label>
+                        <input type="datetime-local" name="termin_option" id="termin_option"> 
+                        <button type="button" class="btn btn-primary" onclick="AddTerminOption()">Add Termin</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="ablauf_termin">Bis wann kann man abstimmen?</label>
+                    <input type="date" name="ablauf_termin" id="ablauf_termin">
+                </div>
+                <div class="button"><button type="button" class="btn btn-danger" onclick="createTermin()">Create Appointment</button></div>
+            </div>
+            
+            
+            
+            
+
+        </form>
     </div>
     <div id="appointment_container">
-
+        List von Appointments geht hier
+        
     </div>
 
 </body>

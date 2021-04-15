@@ -17,38 +17,44 @@ class Database {
     }
 
 
-    public function createAppointment($appointment) {
+    public function createAppointment($parameter) {
 
-        $sql = "INSERT INTO termine (id, name, ort,	termin_creation_date, ablauf_termin, author)
-        VALUES (NULL, ?, ?, ?, ?, ?);";
+        echo "You are in create Appointments db and parameter is: "; 
+        print_r($parameter); 
+
+        $sql = "INSERT INTO termine (name, ort, ablauf_termin)
+        VALUES (?, ?, ?);";
 
         $stmt = $this->db->prepare($sql);
         if ($stmt === false){
+            echo "error1";
            $this->errormsg = "SQL statement prepare failed.";
            return false;
         }
-        $name = $appointment->getName();
-        $ort = $appointment->getOrt();
-        $termin_datum = $appointment-> getTerminDatum();
-        $ablauf_termin = $appointment-> getAblaufDatum();
-        $author = $appointment->getAuthor();
+        $name = $parameter["name"]; 
+        $ort = $parameter["ort"];
+        //$parameter["termin_option"]
+        $ablauf_termin = $parameter["ablauf_termin"];
+        //$author = $appointment->getAuthor();
 
-        if ($stmt->bind_param("sssss",
+        if ($stmt->bind_param("sss",
         $name,
         $ort,
-        $termin_datum,
-        $ablauf_termin, 
-        $author) == false){
+        //$termin_datum,
+        $ablauf_termin) == false){
            $this->errormsg = "SQL statement binding failed.";
+           echo "error2"; 
            return false;
         }
 
        if ($stmt->execute() == false){
           $this->errormsg = "Appointment could not be created. Maybe it already exists.";
+          echo "error3"; 
           return false;
        }
        $stmt->close();
        return true;
+
     }
 
 
