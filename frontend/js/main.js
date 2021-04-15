@@ -29,3 +29,13 @@ function getAppointments(parameter) {
             }
         );
 }
+
+function createAppointment() {
+   
+   
+}
+
+function showDiv(div) {
+    $(div).show();   
+    showDiv("");
+}
