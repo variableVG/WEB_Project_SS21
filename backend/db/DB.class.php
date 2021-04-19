@@ -17,6 +17,11 @@ class Database {
     }
 
 
+
+    public function createUser($username) {
+        
+    }
+
     public function createAppointment($parameter) {
 
         echo "You are in create Appointments db and parameter is: "; 

@@ -81,14 +81,15 @@ function createTermin() {
 
 function AddTerminOptionToDB() {
 
-//Add functionen
+//Add functionen - 
 parameter["termin_option"] = document.getElementByClass("termin_option").value;
 
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB"},
+        data: { "action": "addTerminOptionToDB" //parameter
+    },
         dataType: "json"
         }).done(function(response) {
             console.log("response in AddTerminOptionToDB")
