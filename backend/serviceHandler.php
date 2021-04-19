@@ -10,22 +10,19 @@ if($method != 'POST') {
     http_response_code(405); 
     header('Allow: POST'); 
     echo "Method not allowed."; 
-    //exit; 
+    exit; 
 }
+
+
+
 isset($_POST["action"]) ? $action = $_POST["action"] : false;
 isset($_POST["name"]) ? $parameter["name"] = $_POST["name"] : false;
 isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
-isset($_POST["author_name"]) ? $action = $_POST["author_name"] : false;
+isset($_POST["author_name"]) ? $parameter["author_name"] = $_POST["author_name"] : false;
 isset($_POST["beschreibung"]) ? $parameter["beschreibung"] = $_POST["beschreibung"] : false;
-isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
+isset($_POST["dauer"]) ? $parameter["dauer"] = $_POST["dauer"] : false;
 
 isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
-
-
-echo "action is: ";
-echo $action; 
-echo "Parameter is: "; 
-print_r($parameter); 
 
 $logic = new Logic();
 $result = $logic->handleRequest($action, $parameter);
@@ -51,4 +48,4 @@ function response($method, $httpStatus, $data)
     }
 }
 
-?>
+?>e

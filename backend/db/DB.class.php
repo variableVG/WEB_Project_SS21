@@ -19,16 +19,40 @@ class Database {
 
 
     public function createUser($username) {
-        
+        $sql = "INSERT INTO user (username) VALUES (?);"; 
+
+        $stmt = $this->db->prepare($sql);
+        if ($stmt === false){
+            echo "create user error1";
+           $this->errormsg = "SQL statement prepare failed.";
+           return false;
+        }
+
+        if ($stmt->bind_param("s", $username) == false){
+           $this->errormsg = "SQL statement binding failed.";
+           echo "create user error2"; 
+           return false;
+        }
+
+       if ($stmt->execute() == false){
+          $this->errormsg = "User could not be created. Maybe it already exists.";
+          echo "create user error3"; 
+          return false;
+       }
+
+       $last_id = mysqli_insert_id($this->db);
+       $stmt->close();
+
+       return $last_id;
+
     }
 
     public function createAppointment($parameter) {
 
-        echo "You are in create Appointments db and parameter is: "; 
-        print_r($parameter); 
+        $author_id = $this->createUser($parameter["author_name"]);
 
-        $sql = "INSERT INTO termine (name, ort, ablauf_termin)
-        VALUES (?, ?, ?);";
+        $sql = "INSERT INTO termine (name, ort, ablauf_termin, author_id, beschreibung, dauer)
+        VALUES (?, ?, ?, ?, ?, ?);";
 
         $stmt = $this->db->prepare($sql);
         if ($stmt === false){
@@ -38,15 +62,17 @@ class Database {
         }
         $name = $parameter["name"]; 
         $ort = $parameter["ort"];
-        //$parameter["termin_option"]
         $ablauf_termin = $parameter["ablauf_termin"];
-        //$author = $appointment->getAuthor();
+        $beschreibung = $parameter["beschreibung"];
+        $dauer = $parameter["dauer"];
 
-        if ($stmt->bind_param("sss",
+        if ($stmt->bind_param("sssiss",
         $name,
         $ort,
-        //$termin_datum,
-        $ablauf_termin) == false){
+        $ablauf_termin, 
+        $author_id,
+        $beschreibung, 
+        $dauer) == false){
            $this->errormsg = "SQL statement binding failed.";
            echo "error2"; 
            return false;
@@ -57,8 +83,10 @@ class Database {
           echo "error3"; 
           return false;
        }
+
+       $last_id = mysqli_insert_id($this->db);
        $stmt->close();
-       return true;
+       return $last_id;
 
     }
 
@@ -93,6 +121,10 @@ class Database {
          //return new Appointment($termin['id'], $termin['name'], $termin['ort'], $termin['termin_datum'], 
          //   $termin['termin_zeit'], $termin['ablauf_termin']);
 
+    }
+
+    public function addTerminOptionToDB($termin_id) {
+        
     }
 }
 

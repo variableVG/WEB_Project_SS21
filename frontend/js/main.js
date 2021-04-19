@@ -64,8 +64,9 @@ function createTermin() {
         }).done(function (response) { 
             console.log("response in create Termin")
             console.log(response)
+            //response is the termin_id
             //If the appointment is created without problems, then we add the options to choose.
-            AddTerminOptionToDB(); 
+            AddTerminOptionToDB(response); 
 
 
         }).fail(
@@ -79,17 +80,19 @@ function createTermin() {
    
 }
 
-function AddTerminOptionToDB() {
+function AddTerminOptionToDB(termin_id) {
 
 //Add functionen - 
-parameter["termin_option"] = document.getElementByClass("termin_option").value;
-
+let parameter = new Array;
+for(let i = 0; i < document.getElementsByClassName("termin_option").length ; i++) {
+    parameter[i] = document.getElementsByClassName("termin_option")[i].value; 
+}
+console.log(parameter); 
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB" //parameter
-    },
+        data: { "action": "addTerminOptionToDB", "parameter": parameter, "termin_id": termin_id},
         dataType: "json"
         }).done(function(response) {
             console.log("response in AddTerminOptionToDB")
@@ -114,6 +117,7 @@ function AddTerminOption() {
     button.innerText = "Add Termin"; 
     label.setAttribute('for', 'termin_option');
     input.setAttribute('type', 'datetime-local');
+    input.setAttribute('class', 'termin_option');
     let termin_options = document.getElementById('termin_options');
     termin_options.append(label); 
     termin_options.append(input); 
