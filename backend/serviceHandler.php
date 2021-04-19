@@ -15,8 +15,13 @@ if($method != 'POST') {
 isset($_POST["action"]) ? $action = $_POST["action"] : false;
 isset($_POST["name"]) ? $parameter["name"] = $_POST["name"] : false;
 isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
+isset($_POST["author_name"]) ? $action = $_POST["author_name"] : false;
 isset($_POST["termin_option"]) ? $parameter["termin_option"] = $_POST["termin_option"] : false;
+isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
+
+
 isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
+
 
 echo "action is: ";
 echo $action; 

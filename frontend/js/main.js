@@ -48,22 +48,26 @@ function createTermin() {
     //console.log(parameter); 
     parameter["name"] = document.getElementById("name").value; 
     parameter["ort"] = document.getElementById("ort").value; 
-    parameter["termin_option"] = document.getElementById("termin_option").value;
+    parameter["author_name"] = document.getElementById("author_name").value; 
+    parameter["dauer"] = document.getElementById("dauer").value; 
+    parameter["beschreibung"] = document.getElementById("beschreibung").value;
     parameter["ablauf_termin"] = document.getElementById("ablauf_termin").value;
+    
 
     console.log(parameter);
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "createAppointment", "name": parameter["name"],"ort": parameter["ort"], "termin_option": parameter["termin_option"], "ablauf_termin" : parameter["ablauf_termin"]},
+        data: { "action": "createAppointment", "name": parameter["name"],"ort": parameter["ort"], "author_name": parameter["author_name"], "dauer": parameter["dauer"], "beschreibung":  parameter["beschreibung"], "ablauf_termin" : parameter["ablauf_termin"]},
         dataType: "json"
         }).done(function (response) { 
             console.log("response in create Termin")
             console.log(response)
-            //To fill after response.  -- > Hier sollte die switch game gehen.
-            let appointment_container = document.createElement('div'); 
-            document.body.append(appointment_container);
+            //If the appointment is created without problems, then we add the options to choose.
+            AddTerminOptionToDB(); 
+
+
         }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail");
@@ -73,6 +77,30 @@ function createTermin() {
         );
 
    
+}
+
+function AddTerminOptionToDB() {
+
+//Add functionen
+parameter["termin_option"] = document.getElementByClass("termin_option").value;
+
+
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        data: { "action": "addTerminOptionToDB"},
+        dataType: "json"
+        }).done(function(response) {
+            console.log("response in AddTerminOptionToDB")
+            console.log(response)
+        }).fail (
+            function (response, textStatus, errorThrown) {
+                console.log("fail");
+                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                console.log(response);
+            }
+
+        );
 }
 
 function AddTerminOption() {
