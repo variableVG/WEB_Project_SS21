@@ -39,7 +39,7 @@ class Database {
           echo "create user error3"; 
           return false;
        }
-
+       
        $last_id = mysqli_insert_id($this->db);
        $stmt->close();
 
@@ -91,19 +91,16 @@ class Database {
     }
 
 
-    public function getAppointments($termin_id) {
+    public function getAppointments() {
 
-        $sql = 'SELECT * FROM termine WHERE id = ?';
+        $sql = 'SELECT * FROM termine';
 
         $stmt = $this->db->prepare($sql);
         if ($stmt == false) { 
             echo("db error 1");
             return false; 
         }
-        if($stmt->bind_param("i", $termin_id) == false) {
-            echo("db error 2");
-            return false; 
-         }
+        
          if($stmt->execute() == false) {
             echo("db error 3");
             return false; 
@@ -114,17 +111,59 @@ class Database {
             echo("db error 4");
             return false; 
          }      
-         $termin = $result->fetch_assoc();
-         $stmt->close();
 
-         return $termin;
+         $termine = [];
+         $i = 0; 
+         while($termin = $result->fetch_row()) {
+               $termine[$i] = $termin;
+               $i = $i + 1; 
+         }
+         
+         $stmt->close(); 
+         return $termine;
          //return new Appointment($termin['id'], $termin['name'], $termin['ort'], $termin['termin_datum'], 
          //   $termin['termin_zeit'], $termin['ablauf_termin']);
 
     }
 
-    public function addTerminOptionToDB($termin_id) {
+    public function addTerminOptionToDB($parameter) {
+        $termin_id = $parameter["termin_id"]; 
         
+         $length = count($parameter["termin_optionen"]);
+        for($i = 0; $i < $length; $i++) {
+            $newarray = explode("T", $parameter["termin_optionen"][$i]);
+            $sql = "INSERT INTO ausgewaehlte_termine (termin_id, termin_datum, termin_zeit) VALUES (?, ?, ?);";
+            
+            $stmt = $this->db->prepare($sql);
+            if ($stmt === false){
+                  echo "error1 addTerminOptionToDB";
+               $this->errormsg = "SQL statement prepare failed.";
+               return false;
+            }
+
+            $termin_datum = $newarray[0]; 
+            $termin_zeit = $newarray[1]; 
+
+            if ($stmt->bind_param("iss",
+            $termin_id,
+            $termin_datum,
+            $termin_zeit) == false) {
+               $this->errormsg = "SQL statement binding failed.";
+               echo "error2 addTerminOptionToDB"; 
+               return false;
+            }
+
+            if ($stmt->execute() == false){
+               $this->errormsg = "Appointment could not be created. Maybe it already exists.";
+               echo "error3 addTerminOptionToDB"; 
+               return false;
+            }
+
+            $stmt->close();
+            
+
+        }
+        return true;
     }
 }
 

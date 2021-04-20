@@ -14,8 +14,8 @@ if($method != 'POST') {
 }
 
 
-
-isset($_POST["action"]) ? $action = $_POST["action"] : false;
+$parameter = null; 
+isset($_POST["action"]) ? $action = $_POST["action"] : false; 
 isset($_POST["name"]) ? $parameter["name"] = $_POST["name"] : false;
 isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
 isset($_POST["author_name"]) ? $parameter["author_name"] = $_POST["author_name"] : false;
@@ -23,6 +23,10 @@ isset($_POST["beschreibung"]) ? $parameter["beschreibung"] = $_POST["beschreibun
 isset($_POST["dauer"]) ? $parameter["dauer"] = $_POST["dauer"] : false;
 
 isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
+isset($_POST["termin_id"]) ? $parameter["termin_id"] = $_POST["termin_id"] : false; 
+isset($_POST["termin_optionen"]) ? $parameter["termin_optionen"] = $_POST["termin_optionen"] : false; 
+
+
 
 $logic = new Logic();
 $result = $logic->handleRequest($action, $parameter);
@@ -48,4 +52,4 @@ function response($method, $httpStatus, $data)
     }
 }
 
-?>e
+?>

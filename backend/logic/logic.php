@@ -20,10 +20,10 @@ class Logic
                 $result = $this->db->createAppointment($parameter);
                 break;
             case "getAppointments":
-                $result = $this->db->getAppointments($parameter);
+                $result = $this->db->getAppointments();
                 break;
             case "addTerminOptionToDB": 
-                $result = $this->db->
+                $result = $this->db->AddTerminOptionToDB($parameter); 
                 break;
             default:
                 $result = null;
@@ -36,4 +36,4 @@ class Logic
 }
 
 
-?>_
+?>

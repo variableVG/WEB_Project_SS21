@@ -3,25 +3,36 @@
 
 window.onload = function () { 
     $("#create_termin").hide();
-    getAppointments(1); 
+    getAppointments(); 
 
 
 }
 
 
-function getAppointments(parameter) {
+function getAppointments() {
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "getAppointments", "parameter" : parameter},
+        data: { "action": "getAppointments"},
         dataType: "json"
         }).done(function (response) { 
             console.log("response in get Appointments")
             console.log(response)
-            //To fill after response.  -- > Hier sollte die switch game gehen.
-            let appointment_container = document.createElement('div'); 
-            document.body.append(appointment_container);
+            for(termin of response) {
+                let appointment = document.createElement('div'); 
+                appointment.setAttribute('class', 'appointment_div');
+                let appointment_text = document.createElement('div'); 
+                appointment_text.innerText = termin[1]; 
+                appointment_text.setAttribute('class', 'appointment_name');
+                let appointment_expDate = document.createElement('div'); 
+                appointment_expDate.setAttribute('class', 'appointement_expDate');
+                appointment_expDate.innerText = termin[4]; 
+                appointment.append(appointment_text); 
+                appointment.append(appointment_expDate);
+                document.getElementById('appointment_container').append(appointment); 
+            }
+            
         }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail");
@@ -32,7 +43,6 @@ function getAppointments(parameter) {
 }
 
 function showTermin() {
-    console.log("Hi!");
     $("#create_termin").show();
     $("#button_show_termine_form").hide(); 
     $("#appointment_container").hide();
@@ -81,22 +91,25 @@ function createTermin() {
 }
 
 function AddTerminOptionToDB(termin_id) {
-
+console.log("You are in AddTerminOptions");
 //Add functionen - 
-let parameter = new Array;
+let termin_optionen = new Array;
 for(let i = 0; i < document.getElementsByClassName("termin_option").length ; i++) {
-    parameter[i] = document.getElementsByClassName("termin_option")[i].value; 
+    termin_optionen[i] = document.getElementsByClassName("termin_option")[i].value; 
 }
-console.log(parameter); 
+console.log(termin_optionen); 
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB", "parameter": parameter, "termin_id": termin_id},
+        data: { "action": "addTerminOptionToDB", "termin_optionen": termin_optionen, "termin_id": termin_id},
         dataType: "json"
         }).done(function(response) {
             console.log("response in AddTerminOptionToDB")
             console.log(response)
+            $("#create_termin").hide();
+            $("#button_show_termine_form").show(); 
+            $("#appointment_container").show();
         }).fail (
             function (response, textStatus, errorThrown) {
                 console.log("fail");
