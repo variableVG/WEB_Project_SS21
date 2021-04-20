@@ -27,7 +27,7 @@ function getAppointments() {
                 appointment_text.setAttribute('class', 'appointment_name');
                 let appointment_expDate = document.createElement('div'); 
                 appointment_expDate.setAttribute('class', 'appointement_expDate');
-                appointment_expDate.innerText = termin[4]; 
+                appointment_expDate.innerText = "Deadline: " + termin[4]; 
                 appointment.append(appointment_text); 
                 appointment.append(appointment_expDate);
                 document.getElementById('appointment_container').append(appointment); 
@@ -110,6 +110,7 @@ console.log(termin_optionen);
             $("#create_termin").hide();
             $("#button_show_termine_form").show(); 
             $("#appointment_container").show();
+            location.reload();
         }).fail (
             function (response, textStatus, errorThrown) {
                 console.log("fail");
