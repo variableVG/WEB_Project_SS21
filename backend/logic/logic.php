@@ -28,6 +28,9 @@ class Logic
             case "getAppointmentOptions": 
                 $result = $this->db->getAppointmentOptions($parameter); 
                 break; 
+            case "setVote": 
+                $result = $this->db->setVote($parameter);
+                break; 
             default:
                 $result = null;
                 break;

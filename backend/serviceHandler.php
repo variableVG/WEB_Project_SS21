@@ -21,6 +21,8 @@ isset($_POST["ort"]) ? $parameter["ort"] = $_POST["ort"] : false;
 isset($_POST["author_name"]) ? $parameter["author_name"] = $_POST["author_name"] : false;
 isset($_POST["beschreibung"]) ? $parameter["beschreibung"] = $_POST["beschreibung"] : false;
 isset($_POST["dauer"]) ? $parameter["dauer"] = $_POST["dauer"] : false;
+isset($_POST["username"]) ? $parameter["username"] = $_POST["username"] : false;
+isset($_POST["choice"]) ? $parameter["choice"] = $_POST["choice"] : false;
 
 isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
 isset($_POST["termin_id"]) ? $parameter["termin_id"] = $_POST["termin_id"] : false; 

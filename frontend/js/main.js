@@ -58,7 +58,7 @@ function getAppointments() {
                 appointment_description.innerText = termin[6];
                 appointment_descriptions.append(appointment_description); 
 
-                let appointment_options = document.createElement('div');
+                let appointment_options = document.createElement('form');
                 appointment_options.setAttribute('class', 'appointment_options');
                 appointment_options.setAttribute('id', termin[0]);
 
@@ -126,13 +126,23 @@ function getAppointmentOptions(termin_id) {
                 div_username.setAttribute('placeholder', 'enter Name'); 
                 AppointmentOptions.append(div_username);
 
+
+
                 for(termin of response) {
                     let check_div = document.createElement('input'); 
                     check_div.setAttribute('type', 'checkbox'); 
                     check_div.setAttribute('class', 'checkbox'); 
+                    check_div.setAttribute('name', 'termin_option'); 
+                    check_div.setAttribute('value', termin[0]);
                     check_div.setAttribute('id', termin[0]);
                     AppointmentOptions.append(check_div);
                 }
+
+                let optionen_senden_div = document.createElement('button'); 
+                optionen_senden_div.innerText = "Senden"; 
+                optionen_senden_div.setAttribute('class', 'option_button');
+                optionen_senden_div.setAttribute('onclick', 'sendVote('+ termin_id +')');
+                AppointmentOptions.append(optionen_senden_div);
 
             }
             
@@ -144,6 +154,35 @@ function getAppointmentOptions(termin_id) {
                 console.log(response);
             }
         );
+}
+
+function sendVote(termin_id) {
+    console.log("I am in sendVOte!")
+    let form = document.getElementById(termin_id); 
+    let username = form[0].value; 
+    for(input of form) {
+        //https://www.w3schools.com/howto/howto_js_display_checkbox_text.asp
+        if(input.checked == true) {
+            console.log("We are going to set the Vote!");
+            $.ajax({
+                type: "POST",
+                url: "../backend/serviceHandler.php",
+                data: { "action": "setVote", "username" : username, "choice": input.value},
+                dataType: "json"
+                }).done (function (response) { 
+                    console.log("set Vote response"); 
+                    console.log(response); 
+                }).fail(
+                    function (response, textStatus, errorThrown) {
+                        console.log("fail in setVote");
+                        console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                        console.log(response);
+                    }
+                );
+        }
+    }
+    
+     
 }
 
 function showTermin() {
@@ -238,7 +277,14 @@ function AddTerminOption() {
 
     let termin_options = document.getElementById('termin_options');
     termin_options.append(label); 
+<<<<<<< Updated upstream
     termin_options.append(dateinput); 
     termin_options.append(timeinput); 
 
 }
+=======
+    termin_options.append(input); 
+}
+
+
+>>>>>>> Stashed changes

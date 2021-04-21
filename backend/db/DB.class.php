@@ -90,7 +90,6 @@ class Database {
 
     }
 
-
     public function getAppointments() {
 
         $sql = 'SELECT * FROM termine';
@@ -124,6 +123,37 @@ class Database {
          //return new Appointment($termin['id'], $termin['name'], $termin['ort'], $termin['termin_datum'], 
          //   $termin['termin_zeit'], $termin['ablauf_termin']);
 
+    }
+
+    public function setVote($parameter) {
+
+      $username = $parameter["username"]; 
+      $choice = $parameter["choice"]; 
+
+      $sql = "INSERT INTO user (username, ausgewaehlte_termine_id)
+      VALUES (?, ?);";
+
+      $stmt = $this->db->prepare($sql);
+      if ($stmt === false){
+          echo "setVote error1";
+         $this->errormsg = "SQL statement prepare failed.";
+         return false;
+      }
+
+      if ($stmt->bind_param("si", $username, $choice) == false){
+         $this->errormsg = "SQL statement binding failed.";
+         echo "setVote error2"; 
+         return false;
+      }
+
+     if ($stmt->execute() == false){
+        $this->errormsg = "Appointment could not be created. Maybe it already exists.";
+        echo "setVote error3"; 
+        return false;
+     }
+
+     $stmt->close();
+     return true;
     }
 
     public function addTerminOptionToDB($parameter) {
