@@ -41,3 +41,44 @@ body{
     padding-bottom: 1%;
 }
 
+#redburron{
+    margin-left:43.38%;
+    margin-top: 3%;
+}
+.movediv{
+    margin-top:5%;
+    float: right;
+
+margin-left:400px;
+margin-right:400px;
+
+padding-right: 30px;
+padding-left: 30px;
+padding-top: 30px;
+padding-bottom: 30px;
+
+}
+
+h3{
+    padding-bottom: 5%;
+}
+
+.resize {
+    width: 500px;
+    height: auto;
+}
+
+.resize {
+    width: 600px;
+    height: auto;
+}
+.newclass{  
+    width: 50px;
+    margin-bottom: 40px;
+    margin-top: 150px;
+     margin-left: 200px;
+    color: white;
+    float: left;
+
+}
+    

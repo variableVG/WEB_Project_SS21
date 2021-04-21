@@ -7,59 +7,81 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
     <title>Web Projekt</title>
 </head>
 
 <body>
+   
     <div id="button_show_termine_form"><button type="button" class="btn btn-danger" onclick="showTermin()">Create Appointment</button></div>
-    
+           
     <div id="create_termin">
-        <form id ="termin_form">
+        <div class="newclass" class="col-md-6">
+            <img class="resize"  class="col-md-6" src="ClipartKey_2444987.png">
+        </div>
+        <div class="movediv">
+          
+        <form id="termin_form">
             <div class="container">
+                <h3>Create an appointment</h3>
+                
+               
                 <div class="row">
-                    <label for="name">Schreib deine Name</label>
-                    <input type="text" name="author_name" id="author_name" minlength="1" maxlength="20">
+                    
+                    <label for="name" class="col-md-6" class="control"><b>Name</b> :</label>
+                    <input type="text" class="col-md-6" name="author_name" id="author_name" minlength="1"
+                        maxlength="20">
                 </div>
+                <br>
                 <div class="row">
-                    <label for="name">Veranstaltung</label>
-                    <input type="text" name="name" id="name" minlength="1" maxlength="20">
+                    <label for="name" class="col-md-6" class="control"><b>Veranstaltung</b>: </label>
+                    <input type="text" class="col-md-6" name="name" id="name" minlength="1" maxlength="20">
                 </div>
+                <br>
                 <div class="row">
-                    <label for="ort">Ort</label>
-                    <input type="text" name="ort" id="ort" minlength="1" maxlength="20">
+                    <label for="ort" class="col-md-6" class="control"><b>Ort</b>: </label>
+                    <input type="text" class="col-md-6" name="ort" id="ort" minlength="1" maxlength="20">
                 </div>
+                <br>
                 <div class="row">
-                    <label for="name">Dauer</label>
-                    <input type="text" name="dauer" id="dauer" minlength="1" maxlength="20">
+                    <label for="name" class="col-md-6" class="control"><b>Dauer</b>: </label>
+                    <input type="text" class="col-md-6" name="dauer" id="dauer" minlength="1" maxlength="20">
                 </div>
+                <br>
                 <div class="row">
-                    <label for="name">Beschreibung</label>
-                    <textarea id="beschreibung" name="beschreibung" rows="4" cols="50"></textarea>
+                    <label for="name" class="col-md-6" class="control"><b>Beschreibung</b>: </label>
+                    <textarea id="beschreibung" class="col-md-6" name="beschreibung" rows="4" cols="50"></textarea>
                 </div>
-                <div class="row">
-                    <div id="termin_options">
-                        <label for="termin_option">Enter Termin - Option 1</label>
-                        <input type="datetime-local" name="termin_option" id="termin_option" class="termin_option"> 
-                        <button type="button" class="btn btn-primary" onclick="AddTerminOption()">Add Termin</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="ablauf_termin">Bis wann kann man abstimmen?</label>
-                    <input type="date" name="ablauf_termin" id="ablauf_termin">
-                </div>
-                <div class="button"><button type="button" class="btn btn-danger" onclick="createTermin()">Create Appointment</button></div>
-            </div>
-            
-            
-            
-            
+                <br>
+                <div id="termin_options" >
 
-        </form>
+                <div class="row">
+                    <label for="termin_option" class="col-md-6"><b>Termin</b>: <b>Erste Option</b> </label>
+                    <input type="datetime-local" class="col-md-6" name="termin_option" id="termin_option"
+                        class="termin_option">
+                    </div>
+                    <!-- <div class="button"><button type="button" id="bluebutton" class="btn btn-dark" onclick="AddTerminOption()">Add -->
+                        <div class="button"><button type="button" id="bluebutton" class="btn btn-light" onclick="AddTerminOption()">Add
+                        
+                        Termin</button></div>
+                </div>
+                <br>
+                <div class="row">
+                    <label for="ablauf_termin " class="col-md-6"><b>Deadline</b>: </label>
+                    <input type="date" class="col-md-6" name="ablauf_termin" id="ablauf_termin">
+                </div>
+               <br>
+                <div class="button"><button type="button" id="redbutton" class="btn btn-dark"
+                onclick="createTermin()">Create Appointment</button></div>
+             </div>
+
+
+    </div>
+    </form>
     </div>
     <div id="appointment_container">
-        
     </div>
-    
+    </div>
+
 </body>
