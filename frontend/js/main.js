@@ -277,14 +277,7 @@ function AddTerminOption() {
 
     let termin_options = document.getElementById('termin_options');
     termin_options.append(label); 
-<<<<<<< Updated upstream
     termin_options.append(dateinput); 
     termin_options.append(timeinput); 
 
 }
-=======
-    termin_options.append(input); 
-}
-
-
->>>>>>> Stashed changes
