@@ -22,15 +22,47 @@ function getAppointments() {
             for(termin of response) {
                 let appointment = document.createElement('div'); 
                 appointment.setAttribute('class', 'appointment_div');
+
                 let appointment_text = document.createElement('div'); 
                 appointment_text.innerText = termin[1]; 
                 appointment_text.setAttribute('class', 'appointment_name');
+
                 let appointment_expDate = document.createElement('div'); 
                 appointment_expDate.setAttribute('class', 'appointement_expDate');
                 appointment_expDate.innerText = "Deadline: " + termin[4]; 
                 appointment.append(appointment_text); 
                 appointment.append(appointment_expDate);
-                document.getElementById('appointment_container').append(appointment); 
+                
+                let appointment_descriptions = document.createElement('div');
+                appointment_descriptions.setAttribute('class', 'appointment_descriptions');
+                appointment.append(appointment_descriptions);
+
+                let appointment_author = document.createElement('div');
+                appointment_author.setAttribute('class', 'appointment_author');
+                //TODO
+                appointment_author.innerText = "Veranstaltung organisiert von "; //Hier müssen wir noch Author hinzüfugen
+                appointment_descriptions.append(appointment_author);
+
+                let appointment_ort = document.createElement('div');
+                appointment_ort.setAttribute('class', 'appointment_ort');
+                appointment_ort.innerText = "Ort: " + termin[2];
+                appointment_descriptions.append(appointment_ort);
+
+                let appointment_duration = document.createElement('div');
+                appointment_duration.setAttribute('class', 'appointment_duration');
+                appointment_duration.innerText = "Dauer: " + termin[7];
+                appointment_descriptions.append(appointment_duration);
+
+                let appointment_description = document.createElement('div');
+                appointment_description.setAttribute('class', 'appointment_description');
+                appointment_description.innerText = termin[6];
+                appointment_descriptions.append(appointment_description); 
+
+                let appointment_options = document.createElement('div');
+
+                
+                document.getElementById('appointment_container').append(appointment);
+
             }
             
         }).fail(
@@ -47,8 +79,6 @@ function showTermin() {
     $("#button_show_termine_form").hide(); 
     $("#appointment_container").hide();
 }
-
-
 
 function createTermin() {
 

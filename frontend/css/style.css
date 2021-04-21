@@ -12,7 +12,7 @@ body{
     margin-top: 20px; 
 }
 
-
+/*---------------------------------------- Appointment Liste -------------------------------------------------- */
 #appointment_container{
     margin: 2%; 
     width: auto; 
@@ -22,10 +22,12 @@ body{
 .appointment_div {
   margin: 2%; 
   margin-left: 15%; 
-  background-color:rgb(178, 200, 247);
+  background-color:rgb(53, 57, 61);
+  color: white;
   border-radius: 10px; 
-  display: relative; 
+  display: absolute; 
   width: 70%; 
+  padding-bottom: 1%;
 }
 
 .appointment_name {
@@ -41,6 +43,39 @@ body{
     padding-bottom: 1%;
 }
 
+.appointment_descriptions {
+    background-color: rgb(201, 202, 216);
+    color: black; 
+    border-radius: 10px; 
+    border: solid, thick, black; 
+    display:relative; 
+    width: 90%;
+    margin-left: 5%; 
+    padding: 1%;
+}
+.appointment_author {
+    display:inline-flex;
+    width: 40%;
+}
+
+.appointment_ort { 
+    display:inline-flex;
+    width: 30%;  
+}
+
+.appointment_duration {
+    display:inline-flex;
+    width: 30%;   
+}
+
+.appointment_description {
+
+}
+
+
+
+
+/*---------------------------------------- Create Appointment -------------------------------------------------- */
 #redburron{
     margin-left:43.38%;
     margin-top: 3%;

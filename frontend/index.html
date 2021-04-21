@@ -20,6 +20,7 @@
         <div class="newclass" class="col-md-6">
             <img class="resize"  class="col-md-6" src="ClipartKey_2444987.png">
         </div>
+        
         <div class="movediv">
           
         <form id="termin_form">
@@ -58,8 +59,8 @@
 
                 <div class="row">
                     <label for="termin_option" class="col-md-6"><b>Termin</b>: <b>Erste Option</b> </label>
-                    <input type="datetime-local" class="col-md-6" name="termin_option" id="termin_option"
-                        class="termin_option">
+                    <input type="date"> <input type="time">
+                    <input type="datetime-local" class="col-md-6" name="termin_option" id="termin_option" class="termin_option">
                     </div>
                     <!-- <div class="button"><button type="button" id="bluebutton" class="btn btn-dark" onclick="AddTerminOption()">Add -->
                         <div class="button"><button type="button" id="bluebutton" class="btn btn-light" onclick="AddTerminOption()">Add
@@ -76,12 +77,16 @@
                 onclick="createTermin()">Create Appointment</button></div>
              </div>
 
+            </div>
+
+        </form>
+    
+    </div>
+
+    <div id="appointment_container">
 
     </div>
-    </form>
-    </div>
-    <div id="appointment_container">
-    </div>
-    </div>
+        
 
 </body>
+</html>
