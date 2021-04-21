@@ -113,6 +113,7 @@ function getAppointmentOptions(termin_id) {
                 empty_div.setAttribute('class', 'option_unit');
                 AppointmentOptions.append(empty_div); 
 
+                //Label for datum
                 for(termin of response) {
                     let date_div = document.createElement('div'); 
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
@@ -120,6 +121,9 @@ function getAppointmentOptions(termin_id) {
                     AppointmentOptions.append(date_div);
                 }
 
+                //TODO:Liste mit User, die schon gewaehlt haben.
+
+                //Userinput fuer Waehlen
                 let div_username = document.createElement('input'); 
                 div_username.setAttribute('type', 'text'); 
                 div_username.setAttribute('class', 'input_user'); 
@@ -127,7 +131,7 @@ function getAppointmentOptions(termin_id) {
                 AppointmentOptions.append(div_username);
 
 
-
+                //Checkbox
                 for(termin of response) {
                     let check_div = document.createElement('input'); 
                     check_div.setAttribute('type', 'checkbox'); 
@@ -138,6 +142,7 @@ function getAppointmentOptions(termin_id) {
                     AppointmentOptions.append(check_div);
                 }
 
+                //Button
                 let optionen_senden_div = document.createElement('button'); 
                 optionen_senden_div.innerText = "Senden"; 
                 optionen_senden_div.setAttribute('class', 'option_button');
