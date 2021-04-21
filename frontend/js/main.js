@@ -8,7 +8,6 @@ window.onload = function () {
 
 }
 
-
 function getAppointments() {
 
     $.ajax({
@@ -97,7 +96,7 @@ function getAppointmentOptions(termin_id) {
                 AppointmentOptions.innerText = "There are no options to choose for this Appointment"; 
             }
             else {
-                AppointmentOptions.style = "grid"; 
+                AppointmentOptions.style.display = "grid"; 
                 let number_of_rows = 1; //It depends of the users - TODO
 
                 //Columns
@@ -106,18 +105,16 @@ function getAppointmentOptions(termin_id) {
                 for (let i = 0; i < response.length; i++) {
                     number_of_columns += width_of_columns + "% ";   
                 }
-                AppointmentOptions.style.gridTemplateColumns = number_of_columns;
-                AppointmentOptions.style.gridTemplateRows = "30px";
+                AppointmentOptions.style.gridTemplateColumns = "repeat(" + (response.length + 1) + ", " + width_of_columns +"%)";
+                //AppointmentOptions.style.gridTemplateRows = "30px 30px";
 
                 let empty_div = document.createElement('div');
                 empty_div.style.width = width_of_columns; 
-                empty_div.innerHTML = "Enter your Name:"
                 empty_div.setAttribute('class', 'option_unit');
                 AppointmentOptions.append(empty_div); 
 
                 for(termin of response) {
                     let date_div = document.createElement('div'); 
-                    date_div.style.width = width_of_columns + "%";
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
                     date_div.setAttribute('class', 'option_unit');
                     AppointmentOptions.append(date_div);
@@ -125,9 +122,17 @@ function getAppointmentOptions(termin_id) {
 
                 let div_username = document.createElement('input'); 
                 div_username.setAttribute('type', 'text'); 
+                div_username.setAttribute('class', 'input_user'); 
+                div_username.setAttribute('placeholder', 'enter Name'); 
                 AppointmentOptions.append(div_username);
 
-
+                for(termin of response) {
+                    let check_div = document.createElement('input'); 
+                    check_div.setAttribute('type', 'checkbox'); 
+                    check_div.setAttribute('class', 'checkbox'); 
+                    check_div.setAttribute('id', termin[0]);
+                    AppointmentOptions.append(check_div);
+                }
 
             }
             
@@ -148,7 +153,6 @@ function showTermin() {
 }
 
 function createTermin() {
-
     console.log("you are in create Termin");
     let parameter = new Array(); 
     //parameter = document.getElementById("create_termin").value; 
@@ -160,7 +164,6 @@ function createTermin() {
     parameter["beschreibung"] = document.getElementById("beschreibung").value;
     parameter["ablauf_termin"] = document.getElementById("ablauf_termin").value;
     
-
     console.log(parameter);
 
     $.ajax({
@@ -174,7 +177,6 @@ function createTermin() {
             //response is the termin_id
             //If the appointment is created without problems, then we add the options to choose.
             AddTerminOptionToDB(response); 
-
 
         }).fail(
             function (response, textStatus, errorThrown) {
