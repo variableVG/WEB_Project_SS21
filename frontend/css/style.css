@@ -68,9 +68,8 @@ body{
     width: 30%;   
 }
 
-.appointment_description {
+/* .appointment_description { }*/
 
-}
 
 .appointment_options {
     border-radius: 10px; 
@@ -102,39 +101,27 @@ body{
     margin-top: 3%;
 }
 .movediv{
-    margin-top:5%;
-    float: right;
-
-margin-left:400px;
-margin-right:400px;
-
-padding-right: 30px;
-padding-left: 30px;
-padding-top: 30px;
-padding-bottom: 30px;
-
+    width: 30%; 
+    margin-top: 2%;
+     margin-right: 10%;
+     margin-left: 10%;
+     float: left;
+     
 }
 
-h3{
+/* h3{
     padding-bottom: 5%;
-}
+} */
 
 .resize {
-    width: 500px;
-    height: auto;
-}
-
-.resize {
-    width: 600px;
+    max-width:100%;
     height: auto;
 }
 .newclass{  
-    width: 50px;
-    margin-bottom: 40px;
-    margin-top: 150px;
-     margin-left: 200px;
-    color: white;
-    float: left;
-
+    width: 30%; 
+    margin-top:10%;
+    margin-right: 10%;
+    margin-left: 10%;
+    float: right;
 }
     

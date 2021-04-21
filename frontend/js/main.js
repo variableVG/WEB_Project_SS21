@@ -221,12 +221,24 @@ console.log(termin_optionen);
 }
 
 function AddTerminOption() {
+    
     let label = document.createElement('label'); 
-    let input = document.createElement('input'); 
+    let dateinput = document.createElement('input'); 
+    let timeinput= document.createElement('input'); 
+
     label.setAttribute('for', 'termin_option');
-    input.setAttribute('type', 'datetime-local');
-    input.setAttribute('class', 'termin_option');
+    dateinput.setAttribute('type', 'date');
+    timeinput.setAttribute('type', 'time');
+
+    dateinput.setAttribute('class', 'termin_option');
+    timeinput.setAttribute('class', 'termin_option');
+    dateinput.setAttribute('class', 'form-control');
+    timeinput.setAttribute('class', 'form-control');
+
+
     let termin_options = document.getElementById('termin_options');
     termin_options.append(label); 
-    termin_options.append(input); 
+    termin_options.append(dateinput); 
+    termin_options.append(timeinput); 
+
 }
