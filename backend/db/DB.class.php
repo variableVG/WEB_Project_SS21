@@ -131,6 +131,7 @@ class Database {
         
          $length = count($parameter["termin_optionen"]);
         for($i = 0; $i < $length; $i++) {
+           //evtl entfernen wenn wir verschiedene Inputs (Zeit und Date) haben
             $newarray = explode("T", $parameter["termin_optionen"][$i]);
             $sql = "INSERT INTO ausgewaehlte_termine (termin_id, termin_datum, termin_zeit) VALUES (?, ?, ?);";
             

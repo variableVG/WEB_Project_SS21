@@ -123,6 +123,12 @@ function getAppointmentOptions(termin_id) {
                     AppointmentOptions.append(date_div);
                 }
 
+                let div_username = document.createElement('input'); 
+                div_username.setAttribute('type', 'text'); 
+                AppointmentOptions.append(div_username);
+
+
+
             }
             
 
@@ -215,16 +221,10 @@ console.log(termin_optionen);
 function AddTerminOption() {
     let label = document.createElement('label'); 
     let input = document.createElement('input'); 
-    let button = document.createElement('button'); 
-    button.setAttribute('type', 'button');
-    button.setAttribute('class', 'btn btn-primary');
-    button.setAttribute('onclick', 'AddTerminOption()');
-    button.innerText = "Add Termin"; 
     label.setAttribute('for', 'termin_option');
     input.setAttribute('type', 'datetime-local');
     input.setAttribute('class', 'termin_option');
     let termin_options = document.getElementById('termin_options');
     termin_options.append(label); 
     termin_options.append(input); 
-    termin_options.append(button); 
 }
