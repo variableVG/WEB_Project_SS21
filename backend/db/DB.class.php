@@ -165,6 +165,44 @@ class Database {
         }
         return true;
     }
+
+    public function getAppointmentOptions($parameter) {
+      $sql = 'SELECT * FROM ausgewaehlte_termine WHERE termin_id = ?;';
+
+        $stmt = $this->db->prepare($sql);
+        if ($stmt == false) { 
+            echo("getAppointmentOptions error 1");
+            return false; 
+        }
+        $termin_id = $parameter["termin_id"];
+
+        if ($stmt->bind_param("i", $termin_id) == false){
+           $this->errormsg = "SQL statement binding failed.";
+           echo "error2"; 
+           return false;
+        }
+        
+         if($stmt->execute() == false) {
+            echo("getAppointmentOptions error 3");
+            return false; 
+         }
+         //Gets a result set from a prepared statement.
+         $result = $stmt->get_result();
+         
+         if($result->num_rows == 0) {
+            return "empty"; 
+         }      
+         
+         $termine = [];
+         $i = 0; 
+         while($termin = $result->fetch_row()) {
+               $termine[$i] = $termin;
+               $i = $i + 1; 
+         }
+         
+         $stmt->close(); 
+         return $termine;
+    }
 }
 
 

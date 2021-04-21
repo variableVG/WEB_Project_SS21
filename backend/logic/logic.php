@@ -25,6 +25,9 @@ class Logic
             case "addTerminOptionToDB": 
                 $result = $this->db->AddTerminOptionToDB($parameter); 
                 break;
+            case "getAppointmentOptions": 
+                $result = $this->db->getAppointmentOptions($parameter); 
+                break; 
             default:
                 $result = null;
                 break;

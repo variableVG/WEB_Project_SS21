@@ -49,8 +49,8 @@ body{
     border-radius: 10px; 
     border: solid, thick, black; 
     display:relative; 
-    width: 90%;
-    margin-left: 5%; 
+    width: 98%;
+    margin: 1%; 
     padding: 1%;
 }
 .appointment_author {

@@ -22,6 +22,7 @@ function getAppointments() {
             for(termin of response) {
                 let appointment = document.createElement('div'); 
                 appointment.setAttribute('class', 'appointment_div');
+                appointment.setAttribute('id', 'appointment_div' + response[0]);
 
                 let appointment_text = document.createElement('div'); 
                 appointment_text.innerText = termin[1]; 
@@ -59,6 +60,12 @@ function getAppointments() {
                 appointment_descriptions.append(appointment_description); 
 
                 let appointment_options = document.createElement('div');
+                appointment_options.setAttribute('class', 'appointment_options');
+                appointment_options.setAttribute('id', response[0]);
+
+                getAppointmentOptions(termin[0]);
+
+                appointment_descriptions.append(appointment_options); 
 
                 
                 document.getElementById('appointment_container').append(appointment);
@@ -68,6 +75,29 @@ function getAppointments() {
         }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail");
+                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                console.log(response);
+            }
+        );
+}
+
+function getAppointmentOptions(termin_id) {
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        data: { "action": "getAppointmentOptions", "termin_id" : termin_id},
+        dataType: "json"
+        }).done (function (response) {
+            console.log("response in get AppointmentOptions"); 
+            console.log(response); 
+            if(response == "empty"){
+
+            }
+            
+
+        }).fail(
+            function (response, textStatus, errorThrown) {
+                console.log("fail in getAppointmentOptions");
                 console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
                 console.log(response);
             }
