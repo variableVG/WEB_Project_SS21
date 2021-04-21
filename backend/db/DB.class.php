@@ -157,13 +157,21 @@ class Database {
     }
 
     public function addTerminOptionToDB($parameter) {
+
+
+
+      // $parameter["terminoptiondate"]
+      // $parameter["terminoptiontime"]
         $termin_id = $parameter["termin_id"]; 
+        $termin_op_date= $parameter["termin_optionendate"];
+        $termin_op_time= $parameter["termin_optionentime"];
         
-         $length = count($parameter["termin_optionen"]);
+        
+         $length = count($parameter["termin_optionendate"]);
         for($i = 0; $i < $length; $i++) {
            //evtl entfernen wenn wir verschiedene Inputs (Zeit und Date) haben
            //TODO
-            $newarray = explode("T", $parameter["termin_optionen"][$i]);
+            // $newarray = explode("T", $parameter["termin_optionen"][$i]);
             $sql = "INSERT INTO ausgewaehlte_termine (termin_id, termin_datum, termin_zeit) VALUES (?, ?, ?);";
             
             $stmt = $this->db->prepare($sql);
@@ -173,8 +181,8 @@ class Database {
                return false;
             }
 
-            $termin_datum = $newarray[0]; 
-            $termin_zeit = $newarray[1]; 
+           $termin_datum =  $termin_op_date[$i]; 
+           $termin_zeit =   $termin_op_time[$i]; 
 
             if ($stmt->bind_param("iss",
             $termin_id,

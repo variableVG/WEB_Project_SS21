@@ -23,8 +23,6 @@
             <form id="termin_form">
 
              <div class="container">
-
-                
                 <div class="form-group"> 
                     <h3>Create an appointment</h3>
                     <label for="name"  >Name :</label>
@@ -52,9 +50,8 @@
                 </div>
                 <div id="termin_options" class="form-group" >
                     <label for="termin_option" >Termin: Erste Option </label>
-                    <input type="date"name="date" class="form-control"id="date" > 
-                    <input type="time" name="time"class="form-control" id="time"  > <!-- class="termin_option"   add termin time in javascript as well  -->
-
+                    <input type="date"name="date" class="form-control"id="date" class="termin_optiondate"> 
+                    <input type="time" name="time"class="form-control" id="time"class="termin_optiontime"> <!-- class="termin_option"   add termin time in javascript as well  -->
                     <!-- <input type="datetime-local"  name="termin_option" id="termin_option" class="termin_option"> -->
                  </div>
                  <div class="button"><button type="button" id="bluebutton" class="btn btn-dark" onclick="AddTerminOption()">Add Termin</button></div>
