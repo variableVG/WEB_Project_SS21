@@ -72,6 +72,23 @@ body{
 
 }
 
+.appointment_options {
+    display: inline-flex;
+    border-radius: 10px; 
+    border: thick, solid, black;
+    width: 100%;
+    padding: 1%;
+    
+}
+
+.option_unit{
+    float: left; 
+    background-color:rgb(220, 221, 236);
+    margin: 0.1%; 
+    border-radius: 3px;
+    padding: 1%;
+    text-align: center;
+}
 
 
 

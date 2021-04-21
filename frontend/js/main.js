@@ -22,7 +22,7 @@ function getAppointments() {
             for(termin of response) {
                 let appointment = document.createElement('div'); 
                 appointment.setAttribute('class', 'appointment_div');
-                appointment.setAttribute('id', 'appointment_div' + response[0]);
+                appointment.setAttribute('id', 'appointment_div' + termin[0]);
 
                 let appointment_text = document.createElement('div'); 
                 appointment_text.innerText = termin[1]; 
@@ -61,7 +61,7 @@ function getAppointments() {
 
                 let appointment_options = document.createElement('div');
                 appointment_options.setAttribute('class', 'appointment_options');
-                appointment_options.setAttribute('id', response[0]);
+                appointment_options.setAttribute('id', termin[0]);
 
                 getAppointmentOptions(termin[0]);
 
@@ -90,7 +90,38 @@ function getAppointmentOptions(termin_id) {
         }).done (function (response) {
             console.log("response in get AppointmentOptions"); 
             console.log(response); 
+            console.log("response length is ")
+            console.log(response.length);
+            let AppointmentOptions = document.getElementById(termin_id); 
             if(response == "empty"){
+                AppointmentOptions.innerText = "There are no options to choose for this Appointment"; 
+            }
+            else {
+                AppointmentOptions.style = "grid"; 
+                let number_of_rows = 1; //It depends of the users - TODO
+
+                //Columns
+                let width_of_columns = 100 / (response.length + 1);
+                let number_of_columns = ""; 
+                for (let i = 0; i < response.length; i++) {
+                    number_of_columns += width_of_columns + "% ";   
+                }
+                AppointmentOptions.style.gridTemplateColumns = number_of_columns;
+                AppointmentOptions.style.gridTemplateRows = "30px";
+
+                let empty_div = document.createElement('div');
+                empty_div.style.width = width_of_columns; 
+                empty_div.innerHTML = "Enter your Name:"
+                empty_div.setAttribute('class', 'option_unit');
+                AppointmentOptions.append(empty_div); 
+
+                for(termin of response) {
+                    let date_div = document.createElement('div'); 
+                    date_div.style.width = width_of_columns + "%";
+                    date_div.innerHTML = termin[2] + "\n" + termin[3]; 
+                    date_div.setAttribute('class', 'option_unit');
+                    AppointmentOptions.append(date_div);
+                }
 
             }
             
