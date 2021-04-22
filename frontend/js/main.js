@@ -84,7 +84,7 @@ function getAppointments() {
                 comments_div.setAttribute('class', 'comments_div'); 
                 comments_div.setAttribute('id', 'comments_div' + termin[0]);
                 getComments(termin[0]);
-                createCommentsBox(); 
+                createCommentsBox(comments_div); 
                 appointment_options.append(comments_div); 
 
 
@@ -315,4 +315,12 @@ function AddTerminOption() {
     termin_options.append(dateinput); 
     termin_options.append(timeinput); 
 
+}
+
+function getComments(termin_id) {
+    console.log("hello"); 
+}
+
+function createCommentsBox(comments_div) {
+    console.log("hello");
 }
