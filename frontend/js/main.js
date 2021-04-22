@@ -234,22 +234,22 @@ function createTermin() {
 }
 
 function AddTerminOptionToDB(termin_id) {
-console.log("You are in AddTerminOptions");
+console.log("You are in AddTerminOptionsToDB");
 //Add functionen - 
 let termin_optionendate = new Array;
 let termin_optionentime = new Array;
-for(let i = 0; i < document.getElementsByClassName("termin_optiondate").length ; i++) {
-    termin_optionendate[i] = document.getElementsByClassName("termin_optiondate")[i].value; 
-}
-for(let k = 0; k < document.getElementsByClassName("termin_optiontime").length ; i++) {
-    termin_optionentime[i] = document.getElementsByClassName("termin_optiontime")[i].value; 
-}
 
+    for(let i = 0; i < document.getElementsByClassName("termin_optiondate").length ; i++) {
+        termin_optionendate[i] = document.getElementsByClassName("termin_optiondate")[i].value; 
+    }
+    for(let k = 0; k < document.getElementsByClassName("termin_optiontime").length ; k++) {
+        termin_optionentime[k] = document.getElementsByClassName("termin_optiontime")[k].value; 
+    }
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB", "termin_optionendate": termin_optionendate, "termin_id": termin_id,"termin_optionentime":termin_optionentime},
+        data: { "action": "addTerminOptionToDB", "termin_optionendate": termin_optionendate,"termin_optionentime":termin_optionentime, "termin_id": termin_id},
         dataType: "json"
         }).done(function(response) {
             console.log("response in AddTerminOptionToDB")
@@ -278,10 +278,9 @@ function AddTerminOption() {
     dateinput.setAttribute('type', 'date');
     timeinput.setAttribute('type', 'time');
 
-    dateinput.setAttribute('class', 'termin_option');
-    timeinput.setAttribute('class', 'termin_option');
-    dateinput.setAttribute('class', 'form-control');
-    timeinput.setAttribute('class', 'form-control');
+    dateinput.setAttribute('class', 'termin_optiondate');
+    timeinput.setAttribute('class', 'termin_optiontime');
+    
 
 
     let termin_options = document.getElementById('termin_options');

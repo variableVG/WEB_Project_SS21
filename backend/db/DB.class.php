@@ -165,6 +165,9 @@ class Database {
         $termin_id = $parameter["termin_id"]; 
         $termin_op_date= $parameter["termin_optionendate"];
         $termin_op_time= $parameter["termin_optionentime"];
+
+        //echo "Parameter in addTerminOPtiontoDB";
+        //print_r($parameter);
         
         
          $length = count($parameter["termin_optionendate"]);
