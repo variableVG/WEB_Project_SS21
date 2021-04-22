@@ -84,14 +84,24 @@ function getAppointments() {
                 show_comments_div.setAttribute('class', 'show_comments_div'); 
                 show_comments_div.setAttribute('id', 'show_comments_div' + termin[0]);
                 getComments(termin[0], show_comments_div);
+                let p = document.createElement('p'); 
+                p.innerText = "Show Comments"; 
+                appointment_descriptions.append(p); 
                 appointment_descriptions.append(show_comments_div); 
+                show_comments_div.style.display = "none"; 
+                $(p).click(function(){
+                    $(show_comments_div).slideToggle("slow");
+                });
+
                 let leave_comments_div = document.createElement('div'); 
                 leave_comments_div.setAttribute('class', 'leave_comments_div'); 
                 leave_comments_div.setAttribute('id', 'leave_comments_div' + termin[0]);
                 createCommentsBox(termin[0], leave_comments_div);
                 appointment_descriptions.append(leave_comments_div);
                  
-
+              
+                    
+                
 
                 //APPEND APPOINTMENT
                 document.getElementById('appointment_container').append(appointment);
@@ -376,9 +386,7 @@ function AddTerminOption() {
 }
 
 function getComments(termin_id, show_comments_div) {
-    let p = document.createElement('p'); 
-    p.innerText = "Show Comments"; 
-    show_comments_div.append(p); 
+    
     
     $.ajax({
         type: "POST",
@@ -396,23 +404,24 @@ function getComments(termin_id, show_comments_div) {
             }
             else {
                 for(let item of response) {
-                    console.log(item); 
+                     
+                    let comment_div = document.createElement('div'); 
+
                     let author_p = document.createElement('p'); 
                     author_p.innerText = "Author: "; //+ item[3];  
-                    show_comments_div.append(author_p);
+                    comment_div.append(author_p);
 
                     let publication_date_div = document.createElement('p'); 
                     publication_date_div.innerText = "Published: "; // + item[5]; 
-                    show_comments_div.append(publication_date_div);
+                    comment_div.append(publication_date_div);
 
                     let comment_p = document.createElement('p'); 
                     comment_p.innerText = item[4]; 
-                    show_comments_div.append(comment_p);
+                    comment_div.append(comment_p);
+
+                    show_comments_div.append(comment_div)
                 }
-            
             }
-
-
         }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail getComments");
@@ -420,19 +429,9 @@ function getComments(termin_id, show_comments_div) {
                 console.log(response);
             }
         );
-
-
-
-    //evtl oben in getComments
-    /*
-    $(document).ready(function(){
-        $(comments_div).click(function(){
-          $(comment_form).slideToggle("slow");
-        });
-    });
-    */ 
-
     
+    
+
 }
 
 function createCommentsBox(termin_id, leave_comments_div) {
@@ -452,13 +451,15 @@ function createCommentsBox(termin_id, leave_comments_div) {
     comment_button.innerText = "Send Comment"; 
     comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
 
-    comment_form.append(p); 
     comment_form.append(label_username); 
     comment_form.append(username_input); 
     comment_form.append(comment_area);
     comment_form.append(comment_button);
 
+    leave_comments_div.append(p);
     leave_comments_div.append(comment_form);
+
+
 
 }
 
