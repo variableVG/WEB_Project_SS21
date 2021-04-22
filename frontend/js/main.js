@@ -236,20 +236,16 @@ function createTermin() {
 function AddTerminOptionToDB(termin_id) {
 console.log("You are in AddTerminOptions");
 //Add functionen - 
-let termin_optionendate = new Array;
-let termin_optionentime = new Array;
-for(let i = 0; i < document.getElementsByClassName("termin_optiondate").length ; i++) {
-    termin_optionendate[i] = document.getElementsByClassName("termin_optiondate")[i].value; 
+let termin_optionen = new Array;
+for(let i = 0; i < document.getElementsByClassName("termin_option").length ; i++) {
+    termin_optionen[i] = document.getElementsByClassName("termin_option")[i].value; 
 }
-for(let k = 0; k < document.getElementsByClassName("termin_optiontime").length ; i++) {
-    termin_optionentime[i] = document.getElementsByClassName("termin_optiontime")[i].value; 
-}
-
+console.log(termin_optionen); 
 
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB", "termin_optionendate": termin_optionendate, "termin_id": termin_id,"termin_optionentime":termin_optionentime},
+        data: { "action": "addTerminOptionToDB", "termin_optionen": termin_optionen, "termin_id": termin_id},
         dataType: "json"
         }).done(function(response) {
             console.log("response in AddTerminOptionToDB")

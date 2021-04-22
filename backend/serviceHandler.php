@@ -26,11 +26,8 @@ isset($_POST["choice"]) ? $parameter["choice"] = $_POST["choice"] : false;
 
 isset($_POST["ablauf_termin"]) ? $parameter["ablauf_termin"] = $_POST["ablauf_termin"] : false;
 isset($_POST["termin_id"]) ? $parameter["termin_id"] = $_POST["termin_id"] : false; 
+isset($_POST["termin_optionen"]) ? $parameter["termin_optionen"] = $_POST["termin_optionen"] : false; 
 
- //isset($_POST["termin_optionen"]) ? $parameter["termin_optionen"] = $_POST["termin_optionen"] : false; 
-
-isset($_POST["termin_optionendate"]) ? $parameter["termin_optionendate"] = $_POST["termin_optionendate"] : false; 
-isset($_POST["termin_optionentime"]) ? $parameter["termin_optionentime"] = $_POST["termin_optionentime"] : false; 
 
 
 $logic = new Logic();
