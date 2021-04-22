@@ -280,6 +280,77 @@ class Database {
 
     }
 
+    public function getComments($parameter) {
+      $termin_id = $parameter["termin_id"];
+      $sql = 'SELECT * FROM kommentare WHERE termin_id = ?;';
+
+      $stmt = $this->db->prepare($sql);
+      if ($stmt == false) { 
+          echo("getAppointmentOptions error 1");
+          return false; 
+      }
+      
+      if ($stmt->bind_param("i", $termin_id) == false){
+         $this->errormsg = "SQL statement binding failed.";
+         echo "error2"; 
+         return false;
+      }
+      
+       if($stmt->execute() == false) {
+          echo("getAppointmentOptions error 3");
+          return false; 
+       }
+       //Gets a result set from a prepared statement.
+       $result = $stmt->get_result();
+       
+       if($result->num_rows == 0) {
+          return "empty"; 
+       }      
+       
+       $comments = [];
+       $i = 0; 
+       while($comment = $result->fetch_row()) {
+             $comments[$i] = $comment;
+             $i = $i + 1; 
+       }
+       
+       $stmt->close(); 
+       return $comments;
+    }
+
+    public function getUsersVotes($parameter) {
+      //$ausgewahlte_termin_id = $parameter["termin_id"];
+
+      $sql = 'SELECT * FROM user;';
+
+      $stmt = $this->db->prepare($sql);
+      if ($stmt == false) { 
+          echo("getUsersVotes error 1");
+          return false; 
+      }
+      
+       if($stmt->execute() == false) {
+          echo("getUsersVotes error 3");
+          return false; 
+       }
+       //Gets a result set from a prepared statement.
+       $result = $stmt->get_result();
+       
+       if($result->num_rows == 0) {
+          return "empty"; 
+       }      
+       
+       $users = [];
+       $i = 0; 
+       while($user = $result->fetch_row()) {
+             $users[$i] = $user;
+             $i = $i + 1; 
+       }
+       
+       $stmt->close(); 
+       return $users;
+    }
+
 }
 
 

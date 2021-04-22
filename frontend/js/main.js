@@ -80,12 +80,17 @@ function getAppointments() {
                 appointment_descriptions.append(appointment_options); 
 
                 //COMMENTS
-                let comments_div = document.createElement('div'); 
-                comments_div.setAttribute('class', 'comments_div'); 
-                comments_div.setAttribute('id', 'comments_div' + termin[0]);
-                getComments(termin[0], comments_div);
-                appointment_descriptions.append(comments_div); 
-                createCommentsBox(termin[0], comments_div); 
+                let show_comments_div = document.createElement('div'); 
+                show_comments_div.setAttribute('class', 'show_comments_div'); 
+                show_comments_div.setAttribute('id', 'show_comments_div' + termin[0]);
+                getComments(termin[0], show_comments_div);
+                appointment_descriptions.append(show_comments_div); 
+                let leave_comments_div = document.createElement('div'); 
+                leave_comments_div.setAttribute('class', 'leave_comments_div'); 
+                leave_comments_div.setAttribute('id', 'leave_comments_div' + termin[0]);
+                createCommentsBox(termin[0], leave_comments_div);
+                appointment_descriptions.append(leave_comments_div);
+                 
 
 
                 //APPEND APPOINTMENT
@@ -133,7 +138,7 @@ function getAppointmentOptions(termin_id) {
                 empty_div.setAttribute('class', 'option_unit');
                 AppointmentOptions.append(empty_div); 
 
-                //Label for datum
+                //Labels for dates
                 for(termin of response) {
                     let date_div = document.createElement('div'); 
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
@@ -142,6 +147,35 @@ function getAppointmentOptions(termin_id) {
                 }
 
                 //TODO:Liste mit User, die schon gewaehlt haben.
+                //We need Tuples here --> With Typescript machen
+                let users = getUsersVotes(termin[0]); 
+                console.log("hier with the users");
+                console.log(users);
+                for(let user of users) {
+                    console.log("do i come here");
+                    let name_has_been_printed = false; 
+                    for(let termin of response) {
+                        let userchoice_div = document.createElement('div');
+                        userchoice_div.style.width = width_of_columns; 
+                        userchoice_div.setAttribute('class', 'option_unit');
+                        AppointmentOptions.append(userchoice_div); 
+                        if (user[1] == termin[0]) { //In this positions are saved the id of the ausgewaehlte termin
+                            if(!name_has_been_printed) {
+                                console.log("do i come here?");
+                                let username_div = document.createElement('div');
+                                username_div.innerText = user[0]; //Hier is the username;
+                                username_div.style.width = width_of_columns; 
+                                username_div.setAttribute('class', 'option_unit');
+                                AppointmentOptions.append(username_div); 
+                                name_has_been_printed = true; 
+                            }
+                            userchoice_div.innerText = "&#9745";
+                        }
+                        else {
+                            userchoice_div.innerText = "&#9744";
+                        }
+                    }
+                }
 
                 //Userinput fuer Waehlen
                 let div_username = document.createElement('input'); 
@@ -149,7 +183,6 @@ function getAppointmentOptions(termin_id) {
                 div_username.setAttribute('class', 'input_user'); 
                 div_username.setAttribute('placeholder', 'enter Name'); 
                 AppointmentOptions.append(div_username);
-
 
                 //Checkbox
                 for(termin of response) {
@@ -186,6 +219,31 @@ function getAppointmentOptions(termin_id) {
                 console.log(response);
             }
         );
+}
+
+function getUsersVotes(ausgewahlte_termin) {
+    let users = [];
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        data: { "action": "getUsersVotes", "termin_id" : ausgewahlte_termin},
+        dataType: "json"
+        }).done (function (response) {
+            console.log("Response in getUsersVote");
+            console.log(response); 
+            for(let element of response) {
+                users.push([element[1], element[2]]); 
+            }
+           
+         }).fail(
+            function (response, textStatus, errorThrown) {
+                console.log("fail in getUsersVote");
+                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                console.log(response);
+            }
+        );
+
+        return users; 
 }
 
 function sendVote(termin_id) {
@@ -317,16 +375,42 @@ function AddTerminOption() {
 
 }
 
-function getComments(termin_id, parent_div) {
-    parent_div.innerText = "Show Comments";
-    /*
+function getComments(termin_id, show_comments_div) {
+    let p = document.createElement('p'); 
+    p.innerText = "Show Comments"; 
+    show_comments_div.append(p); 
+    
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
-        data: { "action": ""},
+        data: { "action": "getComments", "termin_id": termin_id},
         dataType: "json"
         }).done(function (response) { 
             console.log("response in getComments"); 
+            console.log(response);
+
+            if(response == "empty") {
+                let p = document.createElement('p'); 
+                p.innerText = "There are no comments"; 
+                show_comments_div.append(p); 
+            }
+            else {
+                for(let item of response) {
+                    console.log(item); 
+                    let author_p = document.createElement('p'); 
+                    author_p.innerText = "Author: "; //+ item[3];  
+                    show_comments_div.append(author_p);
+
+                    let publication_date_div = document.createElement('p'); 
+                    publication_date_div.innerText = "Published: "; // + item[5]; 
+                    show_comments_div.append(publication_date_div);
+
+                    let comment_p = document.createElement('p'); 
+                    comment_p.innerText = item[4]; 
+                    show_comments_div.append(comment_p);
+                }
+            
+            }
 
 
         }).fail(
@@ -337,7 +421,7 @@ function getComments(termin_id, parent_div) {
             }
         );
 
-*/
+
 
     //evtl oben in getComments
     /*
@@ -347,10 +431,11 @@ function getComments(termin_id, parent_div) {
         });
     });
     */ 
+
+    
 }
 
-function createCommentsBox(termin_id, comments_div) {
-    console.log(comments_div);
+function createCommentsBox(termin_id, leave_comments_div) {
     
     let p = document.createElement('p'); 
     p.innerText = "Leave a comment!"; 
@@ -365,7 +450,7 @@ function createCommentsBox(termin_id, comments_div) {
     let comment_area = document.createElement('textarea'); 
     let comment_button = document.createElement('button'); 
     comment_button.innerText = "Send Comment"; 
-    comment_button.setAttribute('onclick', 'sendComment('+ termin_id +');');
+    comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
 
     comment_form.append(p); 
     comment_form.append(label_username); 
@@ -373,7 +458,7 @@ function createCommentsBox(termin_id, comments_div) {
     comment_form.append(comment_area);
     comment_form.append(comment_button);
 
-    comments_div.append(comment_form);
+    leave_comments_div.append(comment_form);
 
 }
 
@@ -389,9 +474,7 @@ function sendComment(termin_id) {
         dataType: "json"
         }).done(function (response) { 
             console.log("response in sendComments"); 
-            console.log(response); 
-
-
+            console.log(response);
         }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail sendComments");

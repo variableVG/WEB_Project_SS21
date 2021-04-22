@@ -34,6 +34,12 @@ class Logic
             case "sendComment": 
                 $result = $this->db->sendComment($parameter);
                 break; 
+            case "getUsersVotes":
+                $result = $this->db->getUsersVotes($parameter);
+                break;
+            case "getComments": 
+                $result = $this->db->getComments($parameter); 
+                break; 
             default:
                 $result = null;
                 break;
