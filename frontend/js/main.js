@@ -85,7 +85,7 @@ function getAppointments() {
                 comments_div.setAttribute('id', 'comments_div' + termin[0]);
                 getComments(termin[0]);
                 createCommentsBox(comments_div); 
-                appointment_options.append(comments_div); 
+                appointment_descriptions.append(comments_div); 
 
 
                 //APPEND APPOINTMENT
@@ -318,6 +318,8 @@ function AddTerminOption() {
 }
 
 function getComments(termin_id) {
+    let parent_div = document.getElementById('comments_div' + termin_id); 
+    //parent_div.innerText = "Show Comments"; 
     console.log("hello"); 
 }
 
