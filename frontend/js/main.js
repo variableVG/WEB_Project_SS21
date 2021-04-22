@@ -4,9 +4,9 @@
 window.onload = function () { 
     $("#create_termin").hide();
     getAppointments(); 
-
-
 }
+
+
 
 function getAppointments() {
 
@@ -26,6 +26,7 @@ function getAppointments() {
                 let appointment_text = document.createElement('div'); 
                 appointment_text.innerText = termin[1]; 
                 appointment_text.setAttribute('class', 'appointment_name');
+                appointment_text.setAttribute('id', 'appointment_name' + termin[0]);
 
                 let appointment_expDate = document.createElement('div'); 
                 appointment_expDate.setAttribute('class', 'appointement_expDate');
@@ -89,8 +90,6 @@ function getAppointmentOptions(termin_id) {
         }).done (function (response) {
             console.log("response in get AppointmentOptions"); 
             console.log(response); 
-            console.log("response length is ")
-            console.log(response.length);
             let AppointmentOptions = document.getElementById(termin_id); 
             if(response == "empty"){
                 AppointmentOptions.innerText = "There are no options to choose for this Appointment"; 
@@ -151,6 +150,13 @@ function getAppointmentOptions(termin_id) {
 
             }
             
+            //Click Option
+            $(document).ready(function(){
+                $("#appointment_name" + termin_id).click(function(){
+                    console.log("you made it!");
+                  $("#appointment_descriptions").slideToggle("slow");
+                });
+            });
 
         }).fail(
             function (response, textStatus, errorThrown) {
