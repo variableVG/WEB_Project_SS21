@@ -36,6 +36,10 @@ function getAppointments() {
                 
                 let appointment_descriptions = document.createElement('div');
                 appointment_descriptions.setAttribute('class', 'appointment_descriptions');
+                appointment_descriptions.setAttribute('id', 'appointment_descriptions'+ termin[0]);
+                //style is display as "none" because it should not appear when loading the page, just after
+                //clicking the name will the method slidetogle used and the descriptions will be shown. 
+                appointment_descriptions.style.display = "none"; 
                 appointment.append(appointment_descriptions);
 
                 let appointment_author = document.createElement('div');
@@ -150,11 +154,11 @@ function getAppointmentOptions(termin_id) {
 
             }
             
-            //Click Option
+            //Click Option to show descriptions.
+            //https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle
             $(document).ready(function(){
                 $("#appointment_name" + termin_id).click(function(){
-                    console.log("you made it!");
-                  $("#appointment_descriptions").slideToggle("slow");
+                  $("#appointment_descriptions" + termin_id).slideToggle("slow");
                 });
             });
 
