@@ -246,6 +246,40 @@ class Database {
          $stmt->close(); 
          return $termine;
     }
+
+
+    public function sendComment($parameter) {
+      $username = $parameter["username"]; 
+      $termin_id = $parameter["termin_id"];
+      $comment_text = $parameter["comment_text"];
+     
+      $sql = "INSERT INTO kommentare (termin_id, username, inhalte)
+      VALUES (?, ?, ?);";
+
+      $stmt = $this->db->prepare($sql);
+      if ($stmt === false){
+          echo "sendComment error1";
+         $this->errormsg = "SQL statement prepare failed.";
+         return false;
+      }
+
+      if ($stmt->bind_param("iss", $termin_id, $username, $comment_text) == false){
+         $this->errormsg = "SQL statement binding failed.";
+         echo "sendComment error2"; 
+         return false;
+      }
+
+     if ($stmt->execute() == false){
+        $this->errormsg = "Appointment could not be created. Maybe it already exists.";
+        echo "sendCommenterror3"; 
+        return false;
+     }
+
+     $stmt->close();
+     return true;
+
+    }
+
 }
 
 

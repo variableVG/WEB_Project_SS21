@@ -32,6 +32,7 @@ isset($_POST["termin_id"]) ? $parameter["termin_id"] = $_POST["termin_id"] : fal
 isset($_POST["termin_optionendate"]) ? $parameter["termin_optionendate"] = $_POST["termin_optionendate"] : false; 
 isset($_POST["termin_optionentime"]) ? $parameter["termin_optionentime"] = $_POST["termin_optionentime"] : false; 
 
+isset($_POST["comment_text"]) ? $parameter["comment_text"] = $_POST["comment_text"] : false; 
 
 $logic = new Logic();
 $result = $logic->handleRequest($action, $parameter);

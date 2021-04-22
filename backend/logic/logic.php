@@ -31,6 +31,9 @@ class Logic
             case "setVote": 
                 $result = $this->db->setVote($parameter);
                 break; 
+            case "sendComment": 
+                $result = $this->db->sendComment($parameter);
+                break; 
             default:
                 $result = null;
                 break;

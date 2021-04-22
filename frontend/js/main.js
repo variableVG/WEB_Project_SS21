@@ -83,9 +83,9 @@ function getAppointments() {
                 let comments_div = document.createElement('div'); 
                 comments_div.setAttribute('class', 'comments_div'); 
                 comments_div.setAttribute('id', 'comments_div' + termin[0]);
-                getComments(termin[0]);
-                createCommentsBox(comments_div); 
+                getComments(termin[0], comments_div);
                 appointment_descriptions.append(comments_div); 
+                createCommentsBox(termin[0], comments_div); 
 
 
                 //APPEND APPOINTMENT
@@ -317,12 +317,86 @@ function AddTerminOption() {
 
 }
 
-function getComments(termin_id) {
-    let parent_div = document.getElementById('comments_div' + termin_id); 
-    //parent_div.innerText = "Show Comments"; 
-    console.log("hello"); 
+function getComments(termin_id, parent_div) {
+    parent_div.innerText = "Show Comments";
+    /*
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        data: { "action": ""},
+        dataType: "json"
+        }).done(function (response) { 
+            console.log("response in getComments"); 
+
+
+        }).fail(
+            function (response, textStatus, errorThrown) {
+                console.log("fail getComments");
+                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                console.log(response);
+            }
+        );
+
+*/
+
+    //evtl oben in getComments
+    /*
+    $(document).ready(function(){
+        $(comments_div).click(function(){
+          $(comment_form).slideToggle("slow");
+        });
+    });
+    */ 
 }
 
-function createCommentsBox(comments_div) {
-    console.log("hello");
+function createCommentsBox(termin_id, comments_div) {
+    console.log(comments_div);
+    
+    let p = document.createElement('p'); 
+    p.innerText = "Leave a comment!"; 
+    
+    let comment_form = document.createElement('form'); 
+    comment_form.setAttribute('id', 'comment_form' + termin_id);
+
+    let label_username = document.createElement('label'); 
+    label_username.innerText = "Enter your name: "; 
+    let username_input = document.createElement('input'); 
+    username_input.setAttribute('type', 'text');
+    let comment_area = document.createElement('textarea'); 
+    let comment_button = document.createElement('button'); 
+    comment_button.innerText = "Send Comment"; 
+    comment_button.setAttribute('onclick', 'sendComment('+ termin_id +');');
+
+    comment_form.append(p); 
+    comment_form.append(label_username); 
+    comment_form.append(username_input); 
+    comment_form.append(comment_area);
+    comment_form.append(comment_button);
+
+    comments_div.append(comment_form);
+
+}
+
+function sendComment(termin_id) {
+    let form = document.getElementById('comment_form' + termin_id); 
+    let username = form[0].value; 
+    let comment_text = form[1].value; 
+    
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        data: { "action": "sendComment", "username": username, "comment_text": comment_text, "termin_id": termin_id},
+        dataType: "json"
+        }).done(function (response) { 
+            console.log("response in sendComments"); 
+            console.log(response); 
+
+
+        }).fail(
+            function (response, textStatus, errorThrown) {
+                console.log("fail sendComments");
+                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                console.log(response);
+            }
+        );
 }
