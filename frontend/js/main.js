@@ -23,17 +23,20 @@ function getAppointments() {
                 appointment.setAttribute('class', 'appointment_div');
                 appointment.setAttribute('id', 'appointment_div' + termin[0]);
 
+                // NAME APPOINTMENT
                 let appointment_text = document.createElement('div'); 
                 appointment_text.innerText = termin[1]; 
                 appointment_text.setAttribute('class', 'appointment_name');
                 appointment_text.setAttribute('id', 'appointment_name' + termin[0]);
 
+                //DEADLINE FOR VOTE
                 let appointment_expDate = document.createElement('div'); 
                 appointment_expDate.setAttribute('class', 'appointement_expDate');
                 appointment_expDate.innerText = "Deadline: " + termin[4]; 
                 appointment.append(appointment_text); 
                 appointment.append(appointment_expDate);
                 
+                //DESCRIPTIONS CONTAINER
                 let appointment_descriptions = document.createElement('div');
                 appointment_descriptions.setAttribute('class', 'appointment_descriptions');
                 appointment_descriptions.setAttribute('id', 'appointment_descriptions'+ termin[0]);
@@ -42,27 +45,32 @@ function getAppointments() {
                 appointment_descriptions.style.display = "none"; 
                 appointment.append(appointment_descriptions);
 
+                //AUTHOR OF EVENT
                 let appointment_author = document.createElement('div');
                 appointment_author.setAttribute('class', 'appointment_author');
-                //TODO
+                //TODO: show author
                 appointment_author.innerText = "Veranstaltung organisiert von "; //Hier müssen wir noch Author hinzüfugen
                 appointment_descriptions.append(appointment_author);
 
+                //PLACE
                 let appointment_ort = document.createElement('div');
                 appointment_ort.setAttribute('class', 'appointment_ort');
                 appointment_ort.innerText = "Ort: " + termin[2];
                 appointment_descriptions.append(appointment_ort);
 
+                //DURATION
                 let appointment_duration = document.createElement('div');
                 appointment_duration.setAttribute('class', 'appointment_duration');
                 appointment_duration.innerText = "Dauer: " + termin[7];
                 appointment_descriptions.append(appointment_duration);
 
+                //DESCRIPTION OF APPOINTMENT
                 let appointment_description = document.createElement('div');
                 appointment_description.setAttribute('class', 'appointment_description');
                 appointment_description.innerText = termin[6];
                 appointment_descriptions.append(appointment_description); 
 
+                //OPTIONS TO VOTE (DATES)
                 let appointment_options = document.createElement('form');
                 appointment_options.setAttribute('class', 'appointment_options');
                 appointment_options.setAttribute('id', termin[0]);
@@ -71,7 +79,16 @@ function getAppointments() {
 
                 appointment_descriptions.append(appointment_options); 
 
-                
+                //COMMENTS
+                let comments_div = document.createElement('div'); 
+                comments_div.setAttribute('class', 'comments_div'); 
+                comments_div.setAttribute('id', 'comments_div' + termin[0]);
+                getComments(termin[0]);
+                createCommentsBox(); 
+                appointment_options.append(comments_div); 
+
+
+                //APPEND APPOINTMENT
                 document.getElementById('appointment_container').append(appointment);
 
             }
