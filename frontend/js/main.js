@@ -86,6 +86,7 @@ function getAppointments() {
                 getComments(termin[0], show_comments_div);
                 let p = document.createElement('p'); 
                 p.innerText = "Show Comments"; 
+                p.setAttribute('class', 'comment_toggle');
                 appointment_descriptions.append(p); 
                 appointment_descriptions.append(show_comments_div); 
                 show_comments_div.style.display = "none"; 
@@ -98,10 +99,15 @@ function getAppointments() {
                 leave_comments_div.setAttribute('id', 'leave_comments_div' + termin[0]);
                 createCommentsBox(termin[0], leave_comments_div);
                 appointment_descriptions.append(leave_comments_div);
+                let p2 = document.createElement('p'); 
+                p2.setAttribute('class', 'comment_toggle');
+                p2.innerText = "Leave a comment!"; 
+                appointment_descriptions.append(p2); 
+                leave_comments_div.style.display = "none"; 
+                $(p2).click(function(){
+                    $(leave_comments_div).slideToggle('slow');
+                });
                  
-              
-                    
-                
 
                 //APPEND APPOINTMENT
                 document.getElementById('appointment_container').append(appointment);
@@ -386,8 +392,6 @@ function AddTerminOption() {
 }
 
 function getComments(termin_id, show_comments_div) {
-    
-    
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
@@ -408,16 +412,19 @@ function getComments(termin_id, show_comments_div) {
                     let comment_div = document.createElement('div'); 
 
                     let author_p = document.createElement('p'); 
-                    author_p.innerText = "Author: "; //+ item[3];  
+                    author_p.innerText = "Author: " + item[3];  
+                    author_p.setAttribute('class', 'comment_author'); 
                     comment_div.append(author_p);
-
-                    let publication_date_div = document.createElement('p'); 
-                    publication_date_div.innerText = "Published: "; // + item[5]; 
-                    comment_div.append(publication_date_div);
 
                     let comment_p = document.createElement('p'); 
                     comment_p.innerText = item[4]; 
+                    comment_p.setAttribute('class', 'comment_text');
                     comment_div.append(comment_p);
+
+                    let publication_date_div = document.createElement('p'); 
+                    publication_date_div.innerText = "Published: " + item[5]; 
+                    publication_date_div.setAttribute('class', 'comment_date'); 
+                    comment_p.append(publication_date_div);
 
                     show_comments_div.append(comment_div)
                 }
@@ -435,31 +442,32 @@ function getComments(termin_id, show_comments_div) {
 }
 
 function createCommentsBox(termin_id, leave_comments_div) {
+    /**This function creates in the DOM a form for the user to leave a comment. Each 
+     * Termin has its own comment-area. 
+     */
     
-    let p = document.createElement('p'); 
-    p.innerText = "Leave a comment!"; 
-    
+    //create form
     let comment_form = document.createElement('form'); 
     comment_form.setAttribute('id', 'comment_form' + termin_id);
+    comment_form.setAttribute('class', 'comment_form'); 
 
-    let label_username = document.createElement('label'); 
-    label_username.innerText = "Enter your name: "; 
+    //create inputs 
     let username_input = document.createElement('input'); 
     username_input.setAttribute('type', 'text');
+    username_input.setAttribute('class', 'comment_username_input');
+    username_input.setAttribute('placeholder', 'Enter your Name');
     let comment_area = document.createElement('textarea'); 
+    comment_area.setAttribute('class', 'comment_textarea'); 
     let comment_button = document.createElement('button'); 
     comment_button.innerText = "Send Comment"; 
     comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
 
-    comment_form.append(label_username); 
+    //apend the inputs and form. 
     comment_form.append(username_input); 
     comment_form.append(comment_area);
     comment_form.append(comment_button);
 
-    leave_comments_div.append(p);
     leave_comments_div.append(comment_form);
-
-
 
 }
 
