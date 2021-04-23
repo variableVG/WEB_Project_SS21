@@ -9,6 +9,9 @@ window.onload = function () {
 
 
 function getAppointments() {
+/**This function makes a POST-Request to get a list with all the appointments and generates the 
+ * HTML-Documents to display them in the browser.
+ */
 
     $.ajax({
         type: "POST",
@@ -49,25 +52,25 @@ function getAppointments() {
                 let appointment_author = document.createElement('div');
                 appointment_author.setAttribute('class', 'appointment_author');
                 //TODO: show author
-                appointment_author.innerText = "Veranstaltung organisiert von "; //Hier müssen wir noch Author hinzüfugen
+                appointment_author.innerHTML= '<b>Organized by: </b>'; //Hier müssen wir noch Author hinzüfugen
                 appointment_descriptions.append(appointment_author);
 
                 //PLACE
                 let appointment_ort = document.createElement('div');
                 appointment_ort.setAttribute('class', 'appointment_ort');
-                appointment_ort.innerText = "Ort: " + termin[2];
+                appointment_ort.innerHTML = '<b>Ort:  </b>' + termin[2];
                 appointment_descriptions.append(appointment_ort);
 
                 //DURATION
                 let appointment_duration = document.createElement('div');
                 appointment_duration.setAttribute('class', 'appointment_duration');
-                appointment_duration.innerText = "Dauer: " + termin[7];
+                appointment_duration.innerHTML = '<b>Dauer:  </b>' + termin[7];
                 appointment_descriptions.append(appointment_duration);
 
                 //DESCRIPTION OF APPOINTMENT
                 let appointment_description = document.createElement('div');
                 appointment_description.setAttribute('class', 'appointment_description');
-                appointment_description.innerText = termin[6];
+                appointment_description.innerHTML = '<b>Description: </b>' + termin[6];
                 appointment_descriptions.append(appointment_description); 
 
                 //OPTIONS TO VOTE (DATES)
@@ -392,6 +395,8 @@ function AddTerminOption() {
 }
 
 function getComments(termin_id, show_comments_div) {
+    /**This function creates a POST-Request to get a list with all the comments made in a given appointment. */
+
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
