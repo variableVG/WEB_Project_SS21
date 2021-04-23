@@ -9,9 +9,6 @@ window.onload = function () {
 
 
 function getAppointments() {
-/**This function makes a POST-Request to get a list with all the appointments and generates the 
- * HTML-Documents to display them in the browser.
- */
 
     $.ajax({
         type: "POST",
@@ -52,25 +49,25 @@ function getAppointments() {
                 let appointment_author = document.createElement('div');
                 appointment_author.setAttribute('class', 'appointment_author');
                 //TODO: show author
-                appointment_author.innerHTML= '<b>Organized by: </b>'; //Hier müssen wir noch Author hinzüfugen
+                appointment_author.innerText = "Veranstaltung organisiert von "; //Hier müssen wir noch Author hinzüfugen
                 appointment_descriptions.append(appointment_author);
 
                 //PLACE
                 let appointment_ort = document.createElement('div');
                 appointment_ort.setAttribute('class', 'appointment_ort');
-                appointment_ort.innerHTML = '<b>Ort:  </b>' + termin[2];
+                appointment_ort.innerText = "Ort: " + termin[2];
                 appointment_descriptions.append(appointment_ort);
 
                 //DURATION
                 let appointment_duration = document.createElement('div');
                 appointment_duration.setAttribute('class', 'appointment_duration');
-                appointment_duration.innerHTML = '<b>Dauer:  </b>' + termin[7];
+                appointment_duration.innerText = "Dauer: " + termin[7];
                 appointment_descriptions.append(appointment_duration);
 
                 //DESCRIPTION OF APPOINTMENT
                 let appointment_description = document.createElement('div');
                 appointment_description.setAttribute('class', 'appointment_description');
-                appointment_description.innerHTML = '<b>Description: </b>' + termin[6];
+                appointment_description.innerText = termin[6];
                 appointment_descriptions.append(appointment_description); 
 
                 //OPTIONS TO VOTE (DATES)
@@ -89,7 +86,6 @@ function getAppointments() {
                 getComments(termin[0], show_comments_div);
                 let p = document.createElement('p'); 
                 p.innerText = "Show Comments"; 
-                p.setAttribute('class', 'comment_toggle');
                 appointment_descriptions.append(p); 
                 appointment_descriptions.append(show_comments_div); 
                 show_comments_div.style.display = "none"; 
@@ -102,15 +98,10 @@ function getAppointments() {
                 leave_comments_div.setAttribute('id', 'leave_comments_div' + termin[0]);
                 createCommentsBox(termin[0], leave_comments_div);
                 appointment_descriptions.append(leave_comments_div);
-                let p2 = document.createElement('p'); 
-                p2.setAttribute('class', 'comment_toggle');
-                p2.innerText = "Leave a comment!"; 
-                appointment_descriptions.append(p2); 
-                leave_comments_div.style.display = "none"; 
-                $(p2).click(function(){
-                    $(leave_comments_div).slideToggle('slow');
-                });
                  
+              
+                    
+                
 
                 //APPEND APPOINTMENT
                 document.getElementById('appointment_container').append(appointment);
@@ -157,13 +148,85 @@ function getAppointmentOptions(termin_id) {
                 empty_div.setAttribute('class', 'option_unit');
                 AppointmentOptions.append(empty_div); 
 
+
                 //Labels for dates
-                for(termin of response) {
+                var today = new Date();
+                var jun3 = new Date(termin[2]+" "+"0:00:00");
+                console.log(today+" "+jun3);
+
+                if(today > jun3){
+                    console.log("TRUE");
+                    // True if today is on or after June 3rd 2016
+                }else{
+                    // Today is before June 3rd
+                    console.log("FALSE");
+
+                }
+
+
+                //THE FOLLOWING COMMENT IS THE CORRECT WOKRING VERSION FOR THE DAATE !!!
+        /*for(termin of response) {
                     let date_div = document.createElement('div'); 
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
                     date_div.setAttribute('class', 'option_unit');
-                    AppointmentOptions.append(date_div);
+                    //AppointmentOptions.append(date_div);
+
+
+                var today = new Date();
+                var dateoption  = new Date(termin[2]+" "+"0:00:00");
+                console.log(today+" "+dateoption);
+
+                if(today > dateoption){
+                    date_div.setAttribute('class', 'option_unit');
+                    let paragraph= document.createElement("p");
+                    paragraph.textContent="HIIIIII this date has expired:";
+                    date_div.append(paragraph);
+                    console.log("TRUE");
+                    // True if today is on or after June 3rd 2016
+                }else{
+                    date_div.setAttribute('class', 'option_unit');
+                    console.log("FALSE");
                 }
+                AppointmentOptions.append(date_div);
+                }
+                */
+               for(termin of response) {
+                    let date_div = document.createElement('div'); 
+                    date_div.innerHTML = termin[2] + "\n" + termin[3]; 
+                    date_div.setAttribute('class', 'option_unit');
+                    //AppointmentOptions.append(date_div);
+
+
+                var today = new Date();
+                var dateoption  = new Date(termin[2]+" "+ termin[3]);
+                var time=dateoption.getTime();
+                var currenttime =today.getTime();
+              //  console.log(today+" "+time);
+                //" "+dateoption+
+               // console.log(today+""+today.getTime())
+                console.log("TODAY : "+currenttime)
+                console.log("appointment : "+time)
+
+
+                if(today > dateoption && currenttime>time){//currenttime>time
+                   
+                   
+                        date_div.setAttribute('class', 'option_unit');
+                        let paragraph= document.createElement("p");
+                        paragraph.textContent="HIIIIII this date has expired:";
+                        date_div.append(paragraph);
+                        console.log("TRUE");
+                    
+                }
+                else{
+                    let o= document.createElement("p");
+                    o.textContent="date is still available";
+                    date_div.append(o);
+                    date_div.setAttribute('class', 'option_unit');
+                }
+                AppointmentOptions.append(date_div);
+                }
+
 
                 //TODO:Liste mit User, die schon gewaehlt haben.
                 //We need Tuples here --> With Typescript machen
@@ -395,8 +458,8 @@ function AddTerminOption() {
 }
 
 function getComments(termin_id, show_comments_div) {
-    /**This function creates a POST-Request to get a list with all the comments made in a given appointment. */
-
+    
+    
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
@@ -417,19 +480,16 @@ function getComments(termin_id, show_comments_div) {
                     let comment_div = document.createElement('div'); 
 
                     let author_p = document.createElement('p'); 
-                    author_p.innerText = "Author: " + item[3];  
-                    author_p.setAttribute('class', 'comment_author'); 
+                    author_p.innerText = "Author: "; //+ item[3];  
                     comment_div.append(author_p);
+
+                    let publication_date_div = document.createElement('p'); 
+                    publication_date_div.innerText = "Published: "; // + item[5]; 
+                    comment_div.append(publication_date_div);
 
                     let comment_p = document.createElement('p'); 
                     comment_p.innerText = item[4]; 
-                    comment_p.setAttribute('class', 'comment_text');
                     comment_div.append(comment_p);
-
-                    let publication_date_div = document.createElement('p'); 
-                    publication_date_div.innerText = "Published: " + item[5]; 
-                    publication_date_div.setAttribute('class', 'comment_date'); 
-                    comment_p.append(publication_date_div);
 
                     show_comments_div.append(comment_div)
                 }
@@ -447,32 +507,31 @@ function getComments(termin_id, show_comments_div) {
 }
 
 function createCommentsBox(termin_id, leave_comments_div) {
-    /**This function creates in the DOM a form for the user to leave a comment. Each 
-     * Termin has its own comment-area. 
-     */
     
-    //create form
+    let p = document.createElement('p'); 
+    p.innerText = "Leave a comment!"; 
+    
     let comment_form = document.createElement('form'); 
     comment_form.setAttribute('id', 'comment_form' + termin_id);
-    comment_form.setAttribute('class', 'comment_form'); 
 
-    //create inputs 
+    let label_username = document.createElement('label'); 
+    label_username.innerText = "Enter your name: "; 
     let username_input = document.createElement('input'); 
     username_input.setAttribute('type', 'text');
-    username_input.setAttribute('class', 'comment_username_input');
-    username_input.setAttribute('placeholder', 'Enter your Name');
     let comment_area = document.createElement('textarea'); 
-    comment_area.setAttribute('class', 'comment_textarea'); 
     let comment_button = document.createElement('button'); 
     comment_button.innerText = "Send Comment"; 
     comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
 
-    //apend the inputs and form. 
+    comment_form.append(label_username); 
     comment_form.append(username_input); 
     comment_form.append(comment_area);
     comment_form.append(comment_button);
 
+    leave_comments_div.append(p);
     leave_comments_div.append(comment_form);
+
+
 
 }
 
