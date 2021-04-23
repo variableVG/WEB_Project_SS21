@@ -163,33 +163,6 @@ function getAppointmentOptions(termin_id) {
 
                 }
 
-
-                //THE FOLLOWING COMMENT IS THE CORRECT WOKRING VERSION FOR THE DAATE !!!
-        /*for(termin of response) {
-                    let date_div = document.createElement('div'); 
-                    date_div.innerHTML = termin[2] + "\n" + termin[3]; 
-                    date_div.setAttribute('class', 'option_unit');
-                    //AppointmentOptions.append(date_div);
-
-
-                var today = new Date();
-                var dateoption  = new Date(termin[2]+" "+"0:00:00");
-                console.log(today+" "+dateoption);
-
-                if(today > dateoption){
-                    date_div.setAttribute('class', 'option_unit');
-                    let paragraph= document.createElement("p");
-                    paragraph.textContent="HIIIIII this date has expired:";
-                    date_div.append(paragraph);
-                    console.log("TRUE");
-                    // True if today is on or after June 3rd 2016
-                }else{
-                    date_div.setAttribute('class', 'option_unit');
-                    console.log("FALSE");
-                }
-                AppointmentOptions.append(date_div);
-                }
-                */
                for(termin of response) {
                     let date_div = document.createElement('div'); 
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
