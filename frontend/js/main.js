@@ -184,7 +184,7 @@ function getAppointmentOptions(termin_id) {
                 if(today > dateoption && currenttime>time){//currenttime>time
                    
                    
-                        date_div.setAttribute('class', 'option_unit');
+                        date_div.setAttribute('class', 'options');
                         let paragraph= document.createElement("p");
                         paragraph.textContent="HIIIIII this date has expired:";
                         date_div.append(paragraph);
