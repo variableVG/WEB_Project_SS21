@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Apr 2021 um 17:13
+-- Erstellungszeit: 24. Apr 2021 um 11:20
 -- Server-Version: 10.4.17-MariaDB
 -- PHP-Version: 8.0.0
 
@@ -59,10 +59,40 @@ INSERT INTO `ausgewaehlte_termine` (`id`, `termin_id`, `termin_datum`, `termin_z
 CREATE TABLE `kommentare` (
   `id` int(11) NOT NULL,
   `termin_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `inhalte` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `datum` date NOT NULL
+  `datum` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `kommentare`
+--
+
+INSERT INTO `kommentare` (`id`, `termin_id`, `user_id`, `username`, `inhalte`, `datum`) VALUES
+(2, 107, NULL, 'asf', 'asfd', '2021-04-22'),
+(3, 107, NULL, 'sdf', 'asfd', '2021-04-22'),
+(4, 107, NULL, 'asdf', 'asdf', '2021-04-22'),
+(5, 107, NULL, 'asdf', 'asdfasdf', '2021-04-22'),
+(6, 107, NULL, 'asfd', 'asdf', '2021-04-22'),
+(7, 107, NULL, 'asf', 'asdf', '2021-04-22'),
+(8, 107, NULL, 'asdf', 'asdf', '2021-04-22'),
+(9, 107, NULL, 'gasdf', 'asdfafsd', '2021-04-22'),
+(10, 107, NULL, 'asdf', 'asdfasdfasdf', '2021-04-22'),
+(11, 107, NULL, 'asf', 'asfd', '2021-04-22'),
+(12, 110, NULL, '', '', '2021-04-22'),
+(13, 107, NULL, 'j', 'k', '2021-04-22'),
+(14, 107, NULL, 'hm', 'jmhgtt', '2021-04-22'),
+(15, 108, NULL, 'wtf', 'wtf', '2021-04-22'),
+(16, 109, NULL, 'op', 'opera', '2021-04-22'),
+(17, 108, NULL, '', '', '2021-04-22'),
+(18, 108, NULL, '', '', '2021-04-22'),
+(19, 108, NULL, '', '', '2021-04-22'),
+(20, 108, NULL, '', '', '2021-04-22'),
+(21, 108, NULL, '', '', '2021-04-22'),
+(22, 108, NULL, 'G', 'I will write a comment here', '2021-04-22'),
+(23, 109, NULL, 'JP', 'This is a comment', '2021-04-23'),
+(24, 107, NULL, '', '', '2021-04-23');
 
 -- --------------------------------------------------------
 
@@ -115,7 +145,12 @@ INSERT INTO `user` (`id`, `username`, `ausgewaehlte_termine_id`) VALUES
 (112, 'Vio', NULL),
 (113, 'Violeta2', NULL),
 (114, 'Web5', NULL),
-(115, 'ANother', NULL);
+(115, 'ANother', NULL),
+(116, 'Violeta', 37),
+(117, 'Violeta', 35),
+(118, 'Globuli', 36),
+(119, 'Globuli', 35),
+(120, 'Amal', 35);
 
 --
 -- Indizes der exportierten Tabellen
@@ -162,7 +197,7 @@ ALTER TABLE `ausgewaehlte_termine`
 -- AUTO_INCREMENT für Tabelle `kommentare`
 --
 ALTER TABLE `kommentare`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT für Tabelle `termine`
@@ -174,7 +209,7 @@ ALTER TABLE `termine`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- Constraints der exportierten Tabellen
