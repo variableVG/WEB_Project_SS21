@@ -186,15 +186,15 @@ function getAppointmentOptions(termin_id) {
                    
                         date_div.setAttribute('class', 'options');
                         let paragraph= document.createElement("p");
-                        paragraph.textContent="HIIIIII this date has expired:";
+                        paragraph.textContent="This date has expired";
                         date_div.append(paragraph);
                         console.log("TRUE");
                     
                 }
                 else{
-                    let o= document.createElement("p");
+                   /* let o= document.createElement("p");
                     o.textContent="date is still available";
-                    date_div.append(o);
+                    date_div.append(o);*/
                     date_div.setAttribute('class', 'option_unit');
                 }
                 AppointmentOptions.append(date_div);

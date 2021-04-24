@@ -81,23 +81,29 @@ body{
     
 }
 .options{
-    border-style: solid;
-    border-color: red;
+    /* border-style: solid; */
+    /* border-color: red; */
+    /* border-style: solid;  */
+    /* border-color: black; */
+    color:red; 
     float: left; 
     background-color:rgb(220, 221, 236);
     width: auto; 
-    margin: 0.3%; 
+    margin: 0.4%; 
     border-radius: 4px;
     padding: 1%;
     text-align: center;
+    opacity: 0.5;
 }
 
 
 .option_unit{
+    /* border-style: solid;  */
+    /* border-color: black; */
     float: left; 
     background-color:rgb(220, 221, 236);
     width: auto; 
-    margin: 0.1%; 
+    margin: 0.4%; 
     border-radius: 3px;
     padding: 1%;
     text-align: center;
