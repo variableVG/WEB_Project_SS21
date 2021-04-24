@@ -99,10 +99,7 @@ function getAppointments() {
                 createCommentsBox(termin[0], leave_comments_div);
                 appointment_descriptions.append(leave_comments_div);
                  
-              
-                    
-                
-
+            
                 //APPEND APPOINTMENT
                 document.getElementById('appointment_container').append(appointment);
 
@@ -147,60 +144,32 @@ function getAppointmentOptions(termin_id) {
                 empty_div.style.width = width_of_columns; 
                 empty_div.setAttribute('class', 'option_unit');
                 AppointmentOptions.append(empty_div); 
-
-
-                //Labels for dates
-                var today = new Date();
-                var jun3 = new Date(termin[2]+" "+"0:00:00");
-                console.log(today+" "+jun3);
-
-                if(today > jun3){
-                    console.log("TRUE");
-                    // True if today is on or after June 3rd 2016
-                }else{
-                    // Today is before June 3rd
-                    console.log("FALSE");
-
-                }
-
+             
                for(termin of response) {
                     let date_div = document.createElement('div'); 
                     date_div.innerHTML = termin[2] + "\n" + termin[3]; 
                     date_div.setAttribute('class', 'option_unit');
-                    //AppointmentOptions.append(date_div);
+                    var today = new Date();
+                    var dateoption  = new Date(termin[2]+" "+ termin[3]);
+                    var time=dateoption.getTime();
+                    var currenttime =today.getTime();
+              
+                   // console.log("TODAY : "+currenttime)
+                   // console.log("appointment : "+time)
 
 
-                var today = new Date();
-                var dateoption  = new Date(termin[2]+" "+ termin[3]);
-                var time=dateoption.getTime();
-                var currenttime =today.getTime();
-              //  console.log(today+" "+time);
-                //" "+dateoption+
-               // console.log(today+""+today.getTime())
-                console.log("TODAY : "+currenttime)
-                console.log("appointment : "+time)
-
-
-                if(today > dateoption && currenttime>time){//currenttime>time
-                   
-                   
+                 if(today > dateoption && currenttime>time){
                         date_div.setAttribute('class', 'options');
                         let paragraph= document.createElement("p");
                         paragraph.textContent="This date has expired";
                         date_div.append(paragraph);
                         console.log("TRUE");
-                    
                 }
                 else{
-                   /* let o= document.createElement("p");
-                    o.textContent="date is still available";
-                    date_div.append(o);*/
                     date_div.setAttribute('class', 'option_unit');
                 }
                 AppointmentOptions.append(date_div);
                 }
-
-
                 //TODO:Liste mit User, die schon gewaehlt haben.
                 //We need Tuples here --> With Typescript machen
                 let users = getUsersVotes(termin[0]); 
@@ -241,6 +210,7 @@ function getAppointmentOptions(termin_id) {
 
                 //Checkbox
                 for(termin of response) {
+
                     let check_div = document.createElement('input'); 
                     check_div.setAttribute('type', 'checkbox'); 
                     check_div.setAttribute('class', 'checkbox'); 
@@ -248,15 +218,14 @@ function getAppointmentOptions(termin_id) {
                     check_div.setAttribute('value', termin[0]);
                     check_div.setAttribute('id', termin[0]);
                     AppointmentOptions.append(check_div);
-                }
-
+                  
+            }
                 //Button
                 let optionen_senden_div = document.createElement('button'); 
                 optionen_senden_div.innerText = "Senden"; 
                 optionen_senden_div.setAttribute('class', 'option_button');
                 optionen_senden_div.setAttribute('onclick', 'sendVote('+ termin_id +')');
                 AppointmentOptions.append(optionen_senden_div);
-
             }
             
             //Click Option to show descriptions.
@@ -369,8 +338,6 @@ function createTermin() {
                 console.log(response);
             }
         );
-
-   
 }
 
 function AddTerminOptionToDB(termin_id) {
