@@ -165,8 +165,15 @@ function getAppointmentOptions(termin_id) {
                         date_div.append(paragraph);
                         console.log("TRUE");
                 }
-                else{
+                else{ 
                     date_div.setAttribute('class', 'option_unit');
+                    let check_div = document.createElement('input'); 
+                    check_div.setAttribute('type', 'checkbox'); 
+                    check_div.setAttribute('class', 'checkbox'); 
+                    check_div.setAttribute('name', 'termin_option'); 
+                    check_div.setAttribute('value', termin[0]);
+                    check_div.setAttribute('id', termin[0]);
+                    date_div .append(check_div);
                 }
                 AppointmentOptions.append(date_div);
                 }
@@ -209,17 +216,17 @@ function getAppointmentOptions(termin_id) {
                 AppointmentOptions.append(div_username);
 
                 //Checkbox
-                for(termin of response) {
+            //     for(termin of response) {
 
-                    let check_div = document.createElement('input'); 
-                    check_div.setAttribute('type', 'checkbox'); 
-                    check_div.setAttribute('class', 'checkbox'); 
-                    check_div.setAttribute('name', 'termin_option'); 
-                    check_div.setAttribute('value', termin[0]);
-                    check_div.setAttribute('id', termin[0]);
-                    AppointmentOptions.append(check_div);
+            //         let check_div = document.createElement('input'); 
+            //         check_div.setAttribute('type', 'checkbox'); 
+            //         check_div.setAttribute('class', 'checkbox'); 
+            //         check_div.setAttribute('name', 'termin_option'); 
+            //         check_div.setAttribute('value', termin[0]);
+            //         check_div.setAttribute('id', termin[0]);
+            //         AppointmentOptions.append(check_div);
                   
-            }
+            // }
                 //Button
                 let optionen_senden_div = document.createElement('button'); 
                 optionen_senden_div.innerText = "Senden"; 
