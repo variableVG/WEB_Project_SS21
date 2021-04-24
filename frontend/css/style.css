@@ -13,6 +13,15 @@ body{
 }
 
 /*---------------------------------------- Appointment Liste -------------------------------------------------- */
+.input_user{
+      border-radius: 5px; 
+
+
+
+
+
+}
+
 #appointment_container{
     margin: 2%; 
     width: auto; 
@@ -114,10 +123,11 @@ body{
 }
 
 .option_button {
-    width: fit-content;
+    width:4px;
+
 }
 
-/* -------------------------------------- Comentare ---------------------------------------------------*/
+/* -------------------------------------- Kommentare ---------------------------------------------------*/
 
 .comment_toggle {
     color: blue; 

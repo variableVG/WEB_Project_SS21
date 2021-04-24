@@ -114,7 +114,7 @@ function getAppointments() {
         );
 }
 
-function getAppointmentOptions(termin_id) {
+    function getAppointmentOptions(termin_id) {
     $.ajax({
         type: "POST",
         url: "../backend/serviceHandler.php",
@@ -212,7 +212,7 @@ function getAppointmentOptions(termin_id) {
                 let div_username = document.createElement('input'); 
                 div_username.setAttribute('type', 'text'); 
                 div_username.setAttribute('class', 'input_user'); 
-                div_username.setAttribute('placeholder', 'enter Name'); 
+                div_username.setAttribute('placeholder', 'Enter Name'); 
                 AppointmentOptions.append(div_username);
 
                 //Checkbox
@@ -229,8 +229,9 @@ function getAppointmentOptions(termin_id) {
             // }
                 //Button
                 let optionen_senden_div = document.createElement('button'); 
-                optionen_senden_div.innerText = "Senden"; 
+                optionen_senden_div.innerText = "Vote"; 
                 optionen_senden_div.setAttribute('class', 'option_button');
+                optionen_senden_div.setAttribute('class', 'btn btn-dark')
                 optionen_senden_div.setAttribute('onclick', 'sendVote('+ termin_id +')');
                 AppointmentOptions.append(optionen_senden_div);
             }
@@ -250,9 +251,9 @@ function getAppointmentOptions(termin_id) {
                 console.log(response);
             }
         );
-}
+    }
 
-function getUsersVotes(ausgewahlte_termin) {
+    function getUsersVotes(ausgewahlte_termin) {
     let users = [];
     $.ajax({
         type: "POST",
@@ -277,7 +278,7 @@ function getUsersVotes(ausgewahlte_termin) {
         return users; 
 }
 
-function sendVote(termin_id) {
+    function sendVote(termin_id) {
     console.log("I am in sendVOte!")
     let form = document.getElementById(termin_id); 
     let username = form[0].value; 
@@ -347,101 +348,101 @@ function createTermin() {
         );
 }
 
-function AddTerminOptionToDB(termin_id) {
-console.log("You are in AddTerminOptionsToDB");
-//Add functionen - 
-let termin_optionendate = new Array;
-let termin_optionentime = new Array;
+    function AddTerminOptionToDB(termin_id) {
+    console.log("You are in AddTerminOptionsToDB");
+    //Add functionen - 
+    let termin_optionendate = new Array;
+    let termin_optionentime = new Array;
 
-    for(let i = 0; i < document.getElementsByClassName("termin_optiondate").length ; i++) {
-        termin_optionendate[i] = document.getElementsByClassName("termin_optiondate")[i].value; 
-    }
-    for(let k = 0; k < document.getElementsByClassName("termin_optiontime").length ; k++) {
-        termin_optionentime[k] = document.getElementsByClassName("termin_optiontime")[k].value; 
-    }
+        for(let i = 0; i < document.getElementsByClassName("termin_optiondate").length ; i++) {
+            termin_optionendate[i] = document.getElementsByClassName("termin_optiondate")[i].value; 
+        }
+        for(let k = 0; k < document.getElementsByClassName("termin_optiontime").length ; k++) {
+            termin_optionentime[k] = document.getElementsByClassName("termin_optiontime")[k].value; 
+        }
 
-    $.ajax({
-        type: "POST",
-        url: "../backend/serviceHandler.php",
-        data: { "action": "addTerminOptionToDB", "termin_optionendate": termin_optionendate,"termin_optionentime":termin_optionentime, "termin_id": termin_id},
-        dataType: "json"
-        }).done(function(response) {
-            console.log("response in AddTerminOptionToDB")
-            console.log(response)
-            $("#create_termin").hide();
-            $("#button_show_termine_form").show(); 
-            $("#appointment_container").show();
-            location.reload();
-        }).fail (
-            function (response, textStatus, errorThrown) {
-                console.log("fail");
-                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
-                console.log(response);
-            }
-
-        );
-}
-
-function AddTerminOption() {
-    
-    let label = document.createElement('label'); 
-    let dateinput = document.createElement('input'); 
-    let timeinput= document.createElement('input'); 
-
-    label.setAttribute('for', 'termin_option');
-    dateinput.setAttribute('type', 'date');
-    timeinput.setAttribute('type', 'time');
-
-    dateinput.setAttribute('class', 'termin_optiondate');
-    timeinput.setAttribute('class', 'termin_optiontime');
-    
-
-
-    let termin_options = document.getElementById('termin_options');
-    termin_options.append(label); 
-    termin_options.append(dateinput); 
-    termin_options.append(timeinput); 
-
-}
-
-function getComments(termin_id, show_comments_div) {
-    
-    
-    $.ajax({
-        type: "POST",
-        url: "../backend/serviceHandler.php",
-        data: { "action": "getComments", "termin_id": termin_id},
-        dataType: "json"
-        }).done(function (response) { 
-            console.log("response in getComments"); 
-            console.log(response);
-
-            if(response == "empty") {
-                let p = document.createElement('p'); 
-                p.innerText = "There are no comments"; 
-                show_comments_div.append(p); 
-            }
-            else {
-                for(let item of response) {
-                     
-                    let comment_div = document.createElement('div'); 
-
-                    let author_p = document.createElement('p'); 
-                    author_p.innerText = "Author: "; //+ item[3];  
-                    comment_div.append(author_p);
-
-                    let publication_date_div = document.createElement('p'); 
-                    publication_date_div.innerText = "Published: "; // + item[5]; 
-                    comment_div.append(publication_date_div);
-
-                    let comment_p = document.createElement('p'); 
-                    comment_p.innerText = item[4]; 
-                    comment_div.append(comment_p);
-
-                    show_comments_div.append(comment_div)
+        $.ajax({
+            type: "POST",
+            url: "../backend/serviceHandler.php",
+            data: { "action": "addTerminOptionToDB", "termin_optionendate": termin_optionendate,"termin_optionentime":termin_optionentime, "termin_id": termin_id},
+            dataType: "json"
+            }).done(function(response) {
+                console.log("response in AddTerminOptionToDB")
+                console.log(response)
+                $("#create_termin").hide();
+                $("#button_show_termine_form").show(); 
+                $("#appointment_container").show();
+                location.reload();
+            }).fail (
+                function (response, textStatus, errorThrown) {
+                    console.log("fail");
+                    console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                    console.log(response);
                 }
-            }
-        }).fail(
+
+            );
+    }
+
+    function AddTerminOption() {
+        
+        let label = document.createElement('label'); 
+        let dateinput = document.createElement('input'); 
+        let timeinput= document.createElement('input'); 
+
+        label.setAttribute('for', 'termin_option');
+        dateinput.setAttribute('type', 'date');
+        timeinput.setAttribute('type', 'time');
+
+        dateinput.setAttribute('class', 'termin_optiondate');
+        timeinput.setAttribute('class', 'termin_optiontime');
+        
+
+
+        let termin_options = document.getElementById('termin_options');
+        termin_options.append(label); 
+        termin_options.append(dateinput); 
+        termin_options.append(timeinput); 
+
+    }
+
+    function getComments(termin_id, show_comments_div) {
+        
+        
+        $.ajax({
+            type: "POST",
+            url: "../backend/serviceHandler.php",
+            data: { "action": "getComments", "termin_id": termin_id},
+            dataType: "json"
+            }).done(function (response) { 
+                console.log("response in getComments"); 
+                console.log(response);
+
+                if(response == "empty") {
+                    let p = document.createElement('p'); 
+                    p.innerText = "There are no comments"; 
+                    show_comments_div.append(p); 
+                }
+                else {
+                    for(let item of response) {
+                        
+                        let comment_div = document.createElement('div'); 
+
+                        let author_p = document.createElement('p'); 
+                        author_p.innerText = "Author: "; //+ item[3];  
+                        comment_div.append(author_p);
+
+                        let publication_date_div = document.createElement('p'); 
+                        publication_date_div.innerText = "Published: "; // + item[5]; 
+                        comment_div.append(publication_date_div);
+
+                        let comment_p = document.createElement('p'); 
+                        comment_p.innerText = item[4]; 
+                        comment_div.append(comment_p);
+
+                        show_comments_div.append(comment_div)
+                    }
+                }
+            }).fail(
             function (response, textStatus, errorThrown) {
                 console.log("fail getComments");
                 console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
@@ -468,6 +469,8 @@ function createCommentsBox(termin_id, leave_comments_div) {
     let comment_area = document.createElement('textarea'); 
     let comment_button = document.createElement('button'); 
     comment_button.innerText = "Send Comment"; 
+    comment_button.setAttribute('class', 'btn btn-dark');
+
     comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
 
     comment_form.append(label_username); 
