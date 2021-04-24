@@ -454,55 +454,50 @@ function createTermin() {
 
 }
 
-function createCommentsBox(termin_id, leave_comments_div) {
+    function createCommentsBox(termin_id, leave_comments_div) {
+        
+
     
-    let p = document.createElement('p'); 
-    p.innerText = "Leave a comment!"; 
-    
-    let comment_form = document.createElement('form'); 
-    comment_form.setAttribute('id', 'comment_form' + termin_id);
+        let comment_form = document.createElement('form'); 
+        comment_form.setAttribute('id', 'comment_form' + termin_id);
 
-    let label_username = document.createElement('label'); 
-    label_username.innerText = "Enter your name: "; 
-    let username_input = document.createElement('input'); 
-    username_input.setAttribute('type', 'text');
-    let comment_area = document.createElement('textarea'); 
-    let comment_button = document.createElement('button'); 
-    comment_button.innerText = "Send Comment"; 
-    comment_button.setAttribute('class', 'btn btn-dark');
+        let label_username = document.createElement('label'); 
+        label_username.innerText = "Enter your name: "; 
+        let username_input = document.createElement('input'); 
+        username_input.setAttribute('type', 'text');
+        let comment_area = document.createElement('textarea'); 
+        let comment_button = document.createElement('button'); 
+        comment_area.setAttribute('placeholder','Leave a comment ^^');
+        comment_button.innerText = "Send Comment"; 
+        comment_button.setAttribute('class', 'btn btn-dark');
+        username_input.setAttribute('type', 'text');
+        //comment_area.setAttribute('class', 'commentarea');
+        comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
+        comment_form.appendChild(label_username); 
+        comment_form.appendChild(username_input); 
+        comment_form.appendChild(comment_area);
+        comment_form.appendChild(comment_button);
+        leave_comments_div.appendChild(comment_form);
+    }
 
-    comment_button.setAttribute('onclick', 'sendComment('+ termin_id +')');
-
-    comment_form.append(label_username); 
-    comment_form.append(username_input); 
-    comment_form.append(comment_area);
-    comment_form.append(comment_button);
-
-    leave_comments_div.append(p);
-    leave_comments_div.append(comment_form);
-
-
-
-}
-
-function sendComment(termin_id) {
-    let form = document.getElementById('comment_form' + termin_id); 
-    let username = form[0].value; 
-    let comment_text = form[1].value; 
-    
-    $.ajax({
-        type: "POST",
-        url: "../backend/serviceHandler.php",
-        data: { "action": "sendComment", "username": username, "comment_text": comment_text, "termin_id": termin_id},
-        dataType: "json"
-        }).done(function (response) { 
-            console.log("response in sendComments"); 
-            console.log(response);
-        }).fail(
-            function (response, textStatus, errorThrown) {
-                console.log("fail sendComments");
-                console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+    function sendComment(termin_id) {
+        let form = document.getElementById('comment_form' + termin_id); 
+        let username = form[0].value; 
+        let comment_text = form[1].value; 
+        
+        $.ajax({
+            type: "POST",
+            url: "../backend/serviceHandler.php",
+            data: { "action": "sendComment", "username": username, "comment_text": comment_text, "termin_id": termin_id},
+            dataType: "json"
+            }).done(function (response) { 
+                console.log("response in sendComments"); 
                 console.log(response);
-            }
-        );
-}
+            }).fail(
+                function (response, textStatus, errorThrown) {
+                    console.log("fail sendComments");
+                    console.log('STATUS: ' + textStatus + '\nERROR THROWN: ' + errorThrown);
+                    console.log(response);
+                }
+            );
+    }
